@@ -1,0 +1,110 @@
+/* فونت‌ها */
+@font-face {
+  font-family: 'Pelak';
+  src: url("../fonts/PELAK/Farsi_Numeral/PelakFA-Medium.woff2") format("woff2"),
+       url("../fonts/PELAK/Farsi_Numeral/PelakFA-Medium.woff") format("woff"),
+       url("../fonts/PELAK/Farsi_Numeral/PelakFA-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500; /* Medium */
+}
+
+@font-face {
+  font-family: 'Rokh';
+  src: url("../fonts/Rokh/Rokh-Bold.woff2") format("woff2"),
+       url("../fonts/Rokh/Rokh-Bold.woff") format("woff");
+  font-style: normal;
+  font-weight: 700; /* Bold */
+}
+
+/* کلاس‌ها */
+.rokh {
+  font-family: 'Rokh', sans-serif;
+}
+
+.pelak {
+  font-family: 'Pelak', sans-serif;
+}
+
+/* ریست و استایل پایه */
+html, body, .v-btn {
+  font-family: var(--font-family), 'yekan', sans-serif;
+  line-height: 1.6;
+  font-size: var(--font-size-body) !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* لینک‌ها */
+a {
+  text-decoration: none;
+}
+
+/* کلاس کمکی */
+.border {
+  border: 1px solid var(--maincolor);
+}
+
+/* متغیرهای رنگ و سایز */
+:root {
+  --font-family: 'Pelak', sans-serif;
+  --font-size-body: 16px;
+  --font-size-subtitle: 12px;
+  --font-size-btn: 14px;
+  --font-size-menu: 14px;
+  --maincolor: #14179E;
+  --white: #FFFFFF;
+  --brick: #DEB888;
+  --black: #000000;
+  --grey: #585858;
+  --grey1: #E9EDF1;
+  --grey2: #C5C9CD;
+}
+.vpd-input-group {
+  opacity: 0 !important;
+}
+.vpd-selected .vpd-day-effect,
+.vpd-addon-list-item.vpd-selected {
+  background: #16b6b2 !important;
+}
+.vpd-day[disabled] .vpd-day-text {
+  color: #5b5b5b !important;
+}
+.vpd-day-text {
+  line-height: 40px !important;
+}
+.vpd-header * {
+  color: black;
+}
+
+.vpd-content {
+  top: 0 !important;
+  left: 0 !important;
+  bottom: unset !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 5px grey !important;
+  overflow: hidden;
+}
+.vpd-body {
+  background-color: #e9edf1;
+  border-top: 2px solid white;
+}
+
+.vpd-body * {
+  font-family: pelak !important;
+}
+
+.vpd-date {
+  height: 60px !important;
+}
+
+.vpd-date span {
+  margin-top: 20px;
+}
+
+.direction-prev span,
+.vpd-year-label span {
+  color: black !important;
+}
+.cursorPointer {
+  cursor: pointer;
+}
