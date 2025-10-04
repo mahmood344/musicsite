@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar class="bg-transparent py-4" style="border-bottom: 2px solid grey;">
+  <v-toolbar class="bg-transparent py-4" style="border-bottom: 1px solid grey;">
     <!-- <v-row class="d-flex align-center">
         <v-col class="d-flex d-md-none" cols="2" style="border: 1px solid white">
             <v-btn icon @click="drawer = !drawer">

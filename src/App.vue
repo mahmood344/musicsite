@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card class="w-100 h-screen" style="background: linear-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.9)),url('/imgs/background.jpg');background-repeat: no-repeat;background-position: center;background-size: cover;">
+    <v-card class="w-100 h-100 px-5" style="background: linear-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.9)),url('/imgs/background.jpg');background-repeat: no-repeat;background-position: center;background-size: cover;">
       <Header></Header>
       <router-view></router-view>
       <Footer></Footer>
