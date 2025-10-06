@@ -1,5 +1,5 @@
 <template>
- <v-card flat max-width="1800" height="750" class="d-flex align-center justify-center bg-transparent mx-auto" style="overflow: visible;">
+ <v-card flat max-width="1800" :height="$vuetify.display.smAndDown?500:750" class="d-flex align-center justify-center bg-transparent mx-auto" style="overflow: visible;">
   <v-row class="w-100">
     <v-col cols="12" class="d-flex justify-center">
         <v-avatar :size=$vuetify.display.smAndDown?200:400 :class="store.startAnimation?'logoTop':'logoBottom'">

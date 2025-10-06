@@ -1,22 +1,5 @@
 <template>
   <v-toolbar class="bg-transparent py-4" style="border-bottom: 1px solid grey;">
-    <!-- <v-row class="d-flex align-center">
-        <v-col class="d-flex d-md-none" cols="2" style="border: 1px solid white">
-            <v-btn icon @click="drawer = !drawer">
-            <v-icon class="text-white">mdi-menu</v-icon>
-            </v-btn>
-        </v-col>
-        <v-col class="d-none d-md-flex text-white" md="4" style="border: 1px solid white">
-            <v-btn v-on:click="goToHome" variant="plain" active-class="text-red-500 font-bold">خانه</v-btn>
-            <v-btn v-on:click="goToAlbums" variant="plain">آلبوم ها</v-btn>
-        </v-col>
-        <v-col cols="10"  class="d-flex justify-center" md="5" style="border: 1px solid white">
-            <img src="/imgs/logo.PNG" alt="" v-show="$router.currentRoute.value.name === 'Albums'">
-        </v-col>
-        <v-col cols="3" md="3" class="d-none d-sm-flex px-md-8" style="border: 1px solid white">
-            <v-text-field placeholder="جستجو" prepend-inner-icon="mdi-magnify" class="bg-black" hide-details variant="outlined" density="compact"></v-text-field>
-        </v-col>
-    </v-row> -->
    <v-row class="align-center text-white px-8">
   <!-- موبایل: همبرگر -->
   <v-col cols="5" class="d-flex d-md-none justify-start" >
@@ -36,13 +19,13 @@
   </v-col>
 
   <!-- دسکتاپ: منو -->
-  <v-col md="4" class="d-none d-md-flex justify-start">
-    <v-btn variant="plain">خانه</v-btn>
-    <v-btn variant="plain">آلبوم‌ها</v-btn>
-    <v-btn variant="plain">آلبوم‌ها</v-btn>
-    <v-btn variant="plain">آلبوم‌ها</v-btn>
-    <v-btn variant="plain">آلبوم‌ها</v-btn>
-    <v-btn variant="plain">آلبوم‌ها</v-btn>
+  <v-col md="4" class="d-none d-md-flex justify-space-around menu">
+    <router-link :to="{name:'Home'}"><v-btn variant="plain">خانه</v-btn></router-link>
+    <router-link :to="{name:'Albums'}"><v-btn variant="plain">آلبوم‌ها</v-btn></router-link>
+    <v-btn variant="plain">کنسرت ها</v-btn>
+    <v-btn variant="plain">ویدیو ها</v-btn>
+    <v-btn variant="plain">درباره ما</v-btn>
+    <v-btn variant="plain">تماس با ما</v-btn>
   </v-col>
 
   <!-- دسکتاپ: لوگو -->
@@ -67,12 +50,28 @@
     ></v-text-field>
   </v-col>
 </v-row>
-    <v-navigation-drawer class="bg-black" v-model="drawer" temporary>
-      <v-list>
-        <v-list-item link>خانه</v-list-item>
+    <v-navigation-drawer class="bg-black px-2" v-model="drawer" temporary>
+      <v-list class="pt-8 menu">
+        <router-link :to="{name:'Home'}"><v-list-item link>خانه</v-list-item></router-link>
+        <router-link :to="{name:'Albums'}"><v-list-item link>آلبوم‌ها</v-list-item></router-link>
+        <v-list-item link>کنسرت ها</v-list-item>
+        <v-list-item link>ویدیو ها</v-list-item>
+        <v-list-item link>کنسرت ها</v-list-item>
         <v-list-item link>درباره ما</v-list-item>
-        <v-list-item link>تماس</v-list-item>
+        <v-list-item link>تماس با ما</v-list-item>
       </v-list>
+      <template v-slot:prepend>
+          <div class="pa-2">
+           <v-text-field
+      placeholder="جستجو"
+      prepend-inner-icon="mdi-magnify"
+      hide-details
+      variant="outlined"
+      density="compact"
+      style="background: #161616;"
+    ></v-text-field>
+          </div>
+        </template>
       <template v-slot:append>
           <div class="pa-2">
             <v-btn variant="outlined" v-on:click="drawer = !drawer" block>
@@ -118,5 +117,19 @@ function goToHome(){
 </script>
 
 <style scoped>
+.menu a {
+  color: white; /* همه لینک‌ها سفید */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
+/* وقتی روت فعاله */
+.menu a.router-link-active {
+  color: #8a1b1e
+}
+
+/* اگر فقط بخوای رنگ لینک دقیقاً برابر مسیر فعلی تغییر کنه (نه لینک‌های parent) */
+.menu a.router-link-exact-active {
+  color: #8a1b1e;
+}
 </style>
