@@ -6,91 +6,63 @@
     style="background: transparent"
   >
     <v-row class="h-auto ga-3" align="stretch">
-      <v-col
-        class="h-auto pa-4"
-        cols="12"
-        lg=""
-        style="background: transparent"
-      >
-        <v-card
-          class="h-100 rounded-xl"
-          style="background: rgba(34, 34, 34, 0.5)"
-        >
-          <v-card-title class="text-center text-white py-8"
-            >آلبوم ها</v-card-title
-          >
-          <v-card-text>
-            <!-- <v-card class="rounded-xl cursor-pointer mt-5" image="/imgs/manosedabezan.jpg" height="300"></v-card> -->
-            <v-card
-              class="rounded-xl cursor-pointer mt-5 w-100"
-              image="/imgs/manosedabezan.jpg"
-              height="auto"
-              max-width="100%"
-              style="aspect-ratio: 16 / 9; object-fit: cover"
-            ></v-card>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col
-        class="h-100 pa-4"
-        cols="12"
-        lg="9"
-        style="background: transparent"
-      >
-        <v-card
-          class="h-100 rounded-xl"
-          style="background: rgba(34, 34, 34, 0.5)"
-        >
-          <v-card-title class="text-center text-white py-8"
-            >آهنگ</v-card-title
-          >
-          <v-card-text
-            class="mx-4 rounded-xl pa-8 mb-5"
-            style="background: transparent"
-          >
-            <v-row class="">
-              <v-col
-                class="d-flex justify-center"
-                cols="12"
-                sm="4"
-                md="3"
-                v-for="(track, index) in tracks"
-                :key="index"
-                :sendTrack="track"
-              >
-                <v-card
-                  v-on:click="getTrack(index)"
-                  :width="$vuetify.display.smAndDown ? 300 : 190"
-                  :height="$vuetify.display.smAndDown ? 300 : 190"
-                  class="rounded-xl"
-                >
-                  <v-img
-                    :height="$vuetify.display.smAndDown ? '250' : '150px'"
-                    :src="track.cover"
-                    cover
-                  ></v-img>
-                  <v-card-title
-                    class="h-100 text-white text-center"
-                    style="font-size: 1rem; background: rgba(34, 34, 34, 0.5)"
-                  >
-                    {{ track.titleFa }}
-                  </v-card-title>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-        <v-card
-          class="h-100 rounded-xl mt-4"
-          style="background: rgba(34, 34, 34, 0.5); position: relative"
-        >
-          <v-card
-            class="h-100 rounded-xl"
-            :style="cardStyle"
-            style="background: rgba(34, 34, 34, 0.8)"
-          >
-            <v-card-title class="text-center text-white mt-6"
-              >متن آهنگ {{ title ? title : "منو صدا بزن" }}</v-card-title
+        <v-col class="h-auto pa-4" cols="12" lg="" style="background: transparent">
+            <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
+                <v-card-title class="text-center text-white py-8">آلبوم ها</v-card-title>
+                <v-card-text>
+                    <!-- <v-card class="rounded-xl cursor-pointer mt-5" image="/imgs/manosedabezan.jpg" height="300"></v-card> -->
+                     <v-card
+  class="rounded-xl cursor-pointer mt-5 w-100"
+  image="/imgs/manosedabezan.jpg"
+  height="auto"
+  max-width="100%"
+  style="aspect-ratio: 16 / 9; object-fit: cover;"
+></v-card>
+                </v-card-text>
+            </v-card>
+        </v-col>
+        <v-col class="h-100 pa-4" cols="12" lg="9" style="background: transparent">
+            <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
+                <v-card-title class="text-center text-white py-8">آهنگ ها</v-card-title>
+                <v-card-text class="mx-4 rounded-xl pa-8 mb-5" style="background: transparent;">
+                            <v-row class="">
+                                <v-col class="d-flex justify-center" cols="12" sm="4" md="3" v-for="(track , index) in tracks" :key="index" :sendTrack="track">
+                                    <v-card v-on:click="getTrack(index)" :width="$vuetify.display.smAndDown?300:190" :height="$vuetify.display.smAndDown?300:190" class="rounded-xl">
+                                        <v-img
+      :height="$vuetify.display.smAndDown?'250':'150px'"
+      :src="track.cover"
+      cover
+    ></v-img>
+    <v-card-title class="h-100 text-white text-center" style="font-size: 1rem;background: rgba(34,34,34 ,0.5);">
+    {{ track.titleFa }}
+    </v-card-title>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+                </v-card-text>
+            </v-card>
+            <v-card class="h-100 rounded-xl mt-4" style="background: rgba(34,34,34 ,0.5);position: relative;">
+                <v-card class="h-100 rounded-xl" :style="cardStyle" style="background: rgba(34,34,34 ,0.8);">
+                     <!-- <video id="myVideo" autoplay muted loop>
+  <source src="/imgs/backgroundvid.mp4" type="video/mp4">
+</video>
+<video 
+      v-if="isPlaying" 
+      autoplay 
+      loop 
+      muted 
+      class="background-video"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;"
+    >
+      <source src="/imgs/backgroundvid.mp4" type="video/mp4" />
+    </video> -->
+                <v-card-title class="text-center text-white mt-6">متن آهنگ{{ title ? title : 'منو صدا بزن' }}</v-card-title>
+                <div class="lyrics-box text-white my-2" ref="lyricsBox">
+            <div
+              v-for="(line, index) in tracks[selectedTrackIndex].timedLyrics"
+              :key="index"
+              :ref="el => lineRefs[index] = el"
+              :class="{ active: currentLine === index }"
             >
             <div class="lyrics-box text-white my-2" ref="lyricsBox">
               <div
