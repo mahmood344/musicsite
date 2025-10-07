@@ -51,7 +51,7 @@
     >
       <source src="/imgs/backgroundvid.mp4" type="video/mp4" />
     </video> -->
-                <v-card-title class="text-center text-white mt-6">متن آهنگ {{ title ? title : 'منو صدا بزن' }}</v-card-title>
+                <v-card-title class="text-center text-white mt-6">متن آهنگ{{ title ? title : 'منو صدا بزن' }}</v-card-title>
                 <div class="lyrics-box text-white my-2" ref="lyricsBox">
             <div
               v-for="(line, index) in tracks[selectedTrackIndex].timedLyrics"
