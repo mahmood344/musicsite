@@ -42,7 +42,7 @@
           style="background: rgba(34, 34, 34, 0.5)"
         >
           <v-card-title class="text-center text-white py-8"
-            >آهنگسیسی</v-card-title
+            >آهنگ هاsdsd</v-card-title
           >
           <v-card-text
             class="mx-4 rounded-xl pa-8 mb-5"
