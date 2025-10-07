@@ -51,6 +51,11 @@
     >
       <source src="/imgs/backgroundvid.mp4" type="video/mp4" />
     </video> -->
+      <av-line
+      :line-width="2"
+      line-color="lime"
+      :audio-src="tracks[selectedTrackIndex].link"
+    ></av-line>
                 <v-card-title class="text-center text-white mt-6">متن آهنگ {{ title ? title : 'منو صدا بزن' }}</v-card-title>
                 <div class="lyrics-box text-white my-2" ref="lyricsBox">
             <div
