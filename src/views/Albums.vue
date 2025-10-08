@@ -1,168 +1,198 @@
 <template>
-<v-card flat class="w-100 h-full mx-auto mt-4" max-width="1800" style="background: transparent;">
+  <v-card flat class="w-100 mx-auto mt-4" max-width="1800" style="background: transparent;">
     <v-row class="h-auto ga-3" align="stretch">
-        <v-col class="h-auto pa-4" cols="12" lg="" style="background: transparent">
-            <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
-                <v-card-title class="text-center text-white py-8">آلبوم ها</v-card-title>
-                <v-card-text>
-                    <!-- <v-card class="rounded-xl cursor-pointer mt-5" image="/imgs/manosedabezan.jpg" height="300"></v-card> -->
-                     <v-card
-  class="rounded-xl cursor-pointer mt-5 w-100"
-  image="/imgs/manosedabezan.jpg"
-  height="auto"
-  max-width="100%"
-  style="aspect-ratio: 16 / 9; object-fit: cover;"
-></v-card>
-                </v-card-text>
-            </v-card>
-        </v-col>
-        <v-col class="h-100 pa-4" cols="12" lg="9" style="background: transparent">
-            <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
-                <v-card-title class="text-center text-white py-8">آهنگ ها</v-card-title>
-                <v-card-text class="mx-4 rounded-xl pa-8 mb-5" style="background: transparent;">
-                            <v-row class="">
-                                <v-col class="d-flex justify-center" cols="12" sm="4" md="3" v-for="(track , index) in tracks" :key="index" :sendTrack="track">
-                                    <v-card v-on:click="getTrack(index)" :width="$vuetify.display.smAndDown?300:190" :height="$vuetify.display.smAndDown?300:190" class="rounded-xl">
-                                        <v-img
-      :height="$vuetify.display.smAndDown?'250':'150px'"
-      :src="track.cover"
-      cover
-    ></v-img>
-    <v-card-title class="h-100 text-white text-center" style="font-size: 1rem;background: rgba(34,34,34 ,0.5);">
-    {{ track.titleFa }}
-    </v-card-title>
-                                    </v-card>
-                                </v-col>
-                            </v-row>
-                </v-card-text>
-            </v-card>
-            <v-card class="h-100 rounded-xl mt-4" style="background: rgba(34,34,34 ,0.5);position: relative;">
-                <v-card class="h-100 rounded-xl" :style="cardStyle" style="background: rgba(34,34,34 ,0.8);">
-                     <!-- <video id="myVideo" autoplay muted loop>
-  <source src="/imgs/backgroundvid.mp4" type="video/mp4">
-</video>
-<video 
-      v-if="isPlaying" 
-      autoplay 
-      loop 
-      muted 
-      class="background-video"
-      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;"
-    >
-      <source src="/imgs/backgroundvid.mp4" type="video/mp4" />
-    </video> -->
-      <av-line
-      :line-width="2"
-      line-color="lime"
-      :audio-src="tracks[selectedTrackIndex].link"
-    ></av-line>
-                <v-card-title class="text-center text-white mt-6">متن آهنگ {{ title ? title : 'منو صدا بزن' }}</v-card-title>
-                <div class="lyrics-box text-white my-2" ref="lyricsBox">
-            <div
-              v-for="(line, index) in tracks[selectedTrackIndex].timedLyrics"
-              :key="index"
-              :ref="el => lineRefs[index] = el"
-              :class="{ active: currentLine === index }"
-            >
+
+      <!-- ستون آلبوم ها -->
+      <v-col class="h-auto pa-4" cols="12" lg="" style="background: transparent" :class="$vuetify.display.mdAndDown?'d-none':''">
+        <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
+          <v-card-title class="text-center text-white py-8">آلبوم ها</v-card-title>
+          <v-card-text>
+            <v-card
+              class="rounded-xl cursor-pointer mt-5 w-100"
+              image="/imgs/manosedabezan.jpg"
+              height="auto"
+              max-width="100%"
+              style="aspect-ratio: 16 / 9; object-fit: cover;"
+            ></v-card>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <!-- ستون آهنگ ها -->
+      <v-col class="h-100 pa-4" cols="12" lg="6" style="background: transparent">
+        <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
+          <v-card-title class="text-center text-white py-8">آهنگ ها</v-card-title>
+          <v-card-text class="mx-4 rounded-xl pa-8 mb-5" style="background: transparent;">
+            <v-row>
+              <v-col class="d-flex justify-center" cols="12" sm="4" md="3"
+                     v-for="(track , index) in tracks" :key="index">
+                <v-card v-on:click="getTrack(index)"
+                        :width="$vuetify.display.smAndDown?300:190"
+                        :height="$vuetify.display.smAndDown?300:190"
+                        class="rounded-xl">
+                  <v-img :height="$vuetify.display.smAndDown?'250':'150px'" :src="track.cover" cover></v-img>
+                  <v-card-title class="h-100 text-white text-center"
+                                style="font-size: 1rem;background: rgba(34,34,34 ,0.5);">
+                    {{ track.titleFa }}
+                  </v-card-title>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <!-- دکمه نمایش پلیر پایین -->
+       
+
+        <!-- کارت وسط با پلیر -->
+<v-dialog
+  v-model="show"
+  fullscreen
+  hide-overlay
+  persistent
+  transition="slide-up-fullscreen"
+  :class="$vuetify.display.mdAndUp?'d-none':''"
+>
+        
+          <v-card max-width="auto" width="auto" class="rounded-xl center-card text-center" style="background: rgba(34,34,34 ,0.9);">
+             <!-- <v-toolbar style="background: transparent">
+          <v-toolbar-items>
+            <v-btn
+            icon="mdi-close"
+            @click="show = false"
+            
+          ></v-btn>
+          </v-toolbar-items>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn color="primary" @click="Bottom">
+          {{ showBottom ? 'بستن پلیر پایین' : 'نمایش پلیر پایین' }}
+        </v-btn>
+          </v-toolbar-items>
+        </v-toolbar> -->
+        <v-card class="rounded-xl mx-auto px-8" style="background: rgba(0,0,0,0.5); max-width: 95vw; width: 100%;">
+<v-row class="py-4">
+  <v-col cols="12" class="text-center"><v-btn @click="Bottom" icon="mdi-chevron-down" size="large" color="white">
+          
+        </v-btn></v-col>
+</v-row>
+<v-divider color="white"></v-divider>
+          <v-card-title class="text-center text-white mt-6">
+            متن آهنگ {{ title ? title : 'منو صدا بزن' }}
+          </v-card-title>
+          <div class="lyrics-box text-white my-2" ref="lyricsBox">
+            <div v-for="(line, index) in tracks[selectedTrackIndex].timedLyrics"
+                 :key="index"
+                 :ref="el => lineRefs[index] = el"
+                 :class="{ active: currentLine === index }">
               {{ line.text }}
             </div>
           </div>
-            </v-card>
-            </v-card>
-            <!-- <v-card class="h-100 rounded-xl mt-4" style="position: relative; overflow: hidden;">
-  <video 
-    v-if="isPlaying" 
-    autoplay 
-    loop 
-    muted 
-    class="background-video"
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;"
-  >
-    <source src="/imgs/backgroundvid.mp4" type="video/mp4" />
-  </video>
-  <div
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(34,34,34,0.8); z-index: 1;"
-  ></div>
 
-  <v-card class="h-100 rounded-xl" :style="cardStyle" style="position: relative; z-index: 2; background: transparent;">
-    <v-card-title class="text-center text-white mt-6">
-      متن آهنگ {{ title || 'منو صدا بزن' }}
-    </v-card-title>
-    <div class="lyrics-box text-white my-2" ref="lyricsBox">
-      <div
-        v-for="(line, index) in tracks[selectedTrackIndex].timedLyrics"
-        :key="index"
-        :ref="el => lineRefs[index] = el"
-        :class="{ active: currentLine === index }"
-      >
-        {{ line.text }}
-      </div>
-    </div>
-  </v-card>
-</v-card> -->
-            <v-card class="h-100 rounded-xl mt-4" style="background: rgba(34,34,34 ,0.5);">
-                <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
-                <v-card-text
-                v-show="true"
-                class="mx-4 rounded-xl text-justify" style="background: transparent;">
-                            
-                               <v-expand-transition
-                               v-show="true"
-                               >
-  <v-card-text
-  
-    class="rounded-xl text-center text-white"
-    >
-        <div class="custom-player" dir="ltr">
-    <!-- دکمه پخش -->
-    <button @click="togglePlay" class="player-btn">
-      <span v-if="!isPlaying">▶</span>
-      <span v-else>⏸</span>
-    </button>
+          <!-- پلیر داخل دیو وسط -->
+          <!-- <v-card-text class="rounded-xl text-center text-white"> -->
+            <div class="custom-player" dir="ltr">
+              <button @click="togglePlay" class="player-btn">
+                <span v-if="!isPlaying">▶</span>
+                <span v-else>⏸</span>
+              </button>
+              <span class="time">{{ formatTime(currentTime) }}</span>
+              <div class="progress-container" @click="seek($event)">
+                <div class="progress-bar">
+                  <div class="progress" :style="{ width: progress + '%' }"></div>
+                </div>
+              </div>
+              <span class="time">{{ formatTime(duration) }}</span>
+              <button class="player-btn" @click="toggleMute">
+                <span v-if="!isMuted">🔊</span>
+                <span v-else>🔇</span>
+              </button>
+            </div>
+        </v-card>
+              <!-- </v-card-text> -->
 
-    <!-- زمان فعلی -->
-    <span class="time">{{ formatTime(currentTime) }}</span>
+            <!-- </v-card> -->
+          </v-card>
+        </v-dialog>
+        <!-- کارت پایین فیکس با پلیر -->
+        <transition name="bounce">
+          <v-card :class="$vuetify.display.mdAndUp?'d-none':''" v-show="showBottom" class="bottom-fixed-card text-center" style="background: transparent;position: relative;">
+            <v-card-text class="rounded-xl text-center text-white px-8">
+              <div class="custom-player" dir="ltr" style="border-radius: 50px;max-width: 1000px;">
+                <button @click="togglePlay" class="player-btn">
+                  <span v-if="!isPlaying">▶</span>
+                  <span v-else>⏸</span>
+                </button>
+                <span class="time">{{ formatTime(currentTime) }}</span>
+                <div class="progress-container" @click="seek($event)">
+                  <div class="progress-bar">
+                    <div class="progress" :style="{ width: progress + '%' }"></div>
+                  </div>
+                </div>
+                <span class="time">{{ formatTime(duration) }}</span>
+                <button class="player-btn" @click="toggleMute">
+                  <span v-if="!isMuted">🔊</span>
+                  <span v-else>🔇</span>
+                </button>
+              </div>
+            </v-card-text>
+            <v-btn  class="text-white" icon style="background: linear-gradient(145deg, #111, #222);position: absolute;top: 0;right: 50%;transform: translate(50%,10%);"
+                   @click="top">
+              <v-icon size="x-large">mdi-chevron-up</v-icon>
+            </v-btn>
+          </v-card>
+        </transition>
 
-    <!-- نوار پیشرفت -->
-    <div class="progress-container" @click="seek($event)">
-      <div class="progress-bar">
-        <div class="progress" :style="{ width: progress + '%' }"></div>
-      </div>
-    </div>
-
-    <!-- زمان کل -->
-    <span class="time">{{ formatTime(duration) }}</span>
-
-    <!-- دکمه صدا -->
-    <button class="player-btn" @click="toggleMute">
-      <span v-if="!isMuted">🔊</span>
-      <span v-else>🔇</span>
-    </button>
-
-    <!-- فایل صوتی -->
-    <audio
-      ref="audioPlayer"
-      :src="tracks[selectedTrackIndex].link"
-      preload="metadata"
-      @timeupdate="onTimeUpdate"
-      @loadedmetadata="onLoaded"
-      @ended="onEnded"
-    ></audio>
-  </div>
-  </v-card-text>
-</v-expand-transition>
-                </v-card-text>
-            </v-card>
-            </v-card>
-        </v-col>
+      </v-col>
+      <v-col class="h-auto pa-4" cols="12" lg="" style="background: transparent" :class="$vuetify.display.mdAndDown?'d-none':''">
+        <v-card class="rounded-xl h-100 px-8" style="background: rgba(34,34,34 ,0.5);; max-width: 95vw; width: 100%;">
+          <v-card-title class="text-center text-white py-10">
+            متن آهنگ {{ title ? title : 'منو صدا بزن' }}
+          </v-card-title>
+          <div class="lyrics-box text-white my-2" ref="lyricsBox">
+            <div v-for="(line, index) in tracks[selectedTrackIndex].timedLyrics"
+                 :key="index"
+                 :ref="el => lineRefs[index] = el"
+                 :class="{ active: currentLine === index }">
+              {{ line.text }}
+            </div>
+          </div>
+            <div class="custom-player" dir="ltr">
+              <button @click="togglePlay" class="player-btn">
+                <span v-if="!isPlaying">▶</span>
+                <span v-else>⏸</span>
+              </button>
+              <span class="time">{{ formatTime(currentTime) }}</span>
+              <div class="progress-container" @click="seek($event)">
+                <div class="progress-bar">
+                  <div class="progress" :style="{ width: progress + '%' }"></div>
+                </div>
+              </div>
+              <span class="time">{{ formatTime(duration) }}</span>
+              <button class="player-btn" @click="toggleMute">
+                <span v-if="!isMuted">🔊</span>
+                <span v-else>🔇</span>
+              </button>
+            </div>
+        </v-card>
+      </v-col>
     </v-row>
-</v-card>
+
+    <!-- پلیر واقعی همیشه در DOM -->
+    <audio ref="audioPlayer"
+           preload="metadata"
+           @timeupdate="onTimeUpdate"
+           @loadedmetadata="onLoaded"
+           @ended="onEnded"></audio>
+  </v-card>
 </template>
 
 <script setup>
 import {ref , watch , nextTick , onMounted } from 'vue'
 const isPlaying = ref(false);
+const showBottom = ref(false);
 const title = ref(''); 
+const show = ref(false)
 const isMuted = ref(false);
 const currentTime = ref(0);
 const duration = ref(0);
@@ -173,9 +203,17 @@ const currentLine = ref(0);
 const lineRefs = ref([]) 
 const lyricsBox = ref(null); 
 onMounted(() => {
-  audioPlayer.value = document.createElement('audio');
+  // audioPlayer.value = document.createElement('audio');
 });
 const cardStyle = ref({ background: 'rgba(34,34,34,0.5)', position: 'relative' });
+function Bottom(){
+  showBottom.value = !showBottom.value;
+  show.value = !show.value;
+}
+function top(){
+  showBottom.value = !showBottom.value;
+  show.value = !show.value;
+}
 function togglePlay() {
   const audio = audioPlayer.value;
   if (!audio) return;
@@ -231,6 +269,7 @@ function formatTime(sec) {
 }
 
 async function getTrack(index) {
+  show.value = !show.value;
   title.value = tracks[index].titleFa;
   selectedTrackIndex.value = index;
   currentLine.value = 0;
@@ -606,7 +645,7 @@ timedLyrics: [
   color: #fff;
   gap: 10px;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 20px auto;
   user-select: none;
 }
@@ -666,14 +705,85 @@ timedLyrics: [
 .player-btn {
   font-size: 25px;       
 }
-#myVideo {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  min-width: 140%;
-  min-height: 100%;
+
+
+
+.center-card {
+  width: 100%;
+  height: 100%;
+  background: rgba(34, 34, 34, 0.5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.background-video {
-  pointer-events: none;
+
+.bottom-fixed-card {
+  position: fixed !important;
+  bottom: -90px;
+  left: 0;
+  width: 100%;
+  
+  height: 200px; /* ارتفاع دلخواه */
+  /* background: rgba(34, 34, 34, 0.5);
+  color: white; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease;
+  z-index: 9999;
+}
+
+/* افکت‌های ترنزیشن */
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.slide-up-enter-from,
+.slide-up-leave-to {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.slide-up-fullscreen-enter-active {
+  animation: slide-up 0.5s ease forwards;
+}
+.slide-up-fullscreen-leave-active {
+  animation: slide-down 0.5s ease forwards;
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-down {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
 }
 </style>

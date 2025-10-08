@@ -3,7 +3,7 @@
     <v-card class="w-100 h-100 px-5" style="background: linear-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.9)),url('/imgs/background.jpg');background-repeat: no-repeat;background-position: center;background-size: cover;">
       <Header></Header>
       <router-view></router-view>
-      <Footer></Footer>
+      
     </v-card>
     <!-- <section class="w-100 h-100" style="background: linear-gradient(rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.8));">
       <div class="mx-auto" style="width: 90%; max-width: 1900px;">
@@ -33,7 +33,6 @@
 
 <script setup>
 import Header from './components/Header.vue';
-import Footer from './components/Footer.vue';
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()

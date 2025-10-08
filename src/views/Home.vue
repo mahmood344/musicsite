@@ -14,6 +14,9 @@
     <v-col cols="12" class="d-flex justify-center">
         <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-10">mdi-music</v-icon>همه آلبوم ها</v-btn>
     </v-col>
+    <v-col cols="12">
+      <Footer></Footer>
+    </v-col>
   </v-row>
 </v-card>
 </template>
@@ -22,6 +25,7 @@
 import {ref , watch} from 'vue';
 import { useRouter , useRoute } from 'vue-router';
 import { StateManegment } from '../store/index.js';
+import Footer from '../components/Footer.vue';
 const store = StateManegment();
 const Router = useRouter();
 const Route = useRoute();
