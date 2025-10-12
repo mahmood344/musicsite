@@ -1,5 +1,5 @@
 <template>
- <v-card flat max-width="1800" :height="$vuetify.display.smAndDown?500:750" class="d-flex align-center justify-center bg-transparent mx-auto" style="overflow: visible;">
+ <v-card flat max-width="1800" :height="$vuetify.display.smAndDown?500:950" class="d-flex align-center justify-center bg-transparent mx-auto" style="overflow: visible;">
   <v-row class="w-100">
     <v-col cols="12" class="d-flex justify-center">
         <v-avatar :size=$vuetify.display.smAndDown?200:400 :class="store.startAnimation?'logoTop':'logoBottom'">
@@ -12,7 +12,7 @@
         <h1 style="font-size: 4rem;letter-spacing: 1rem;color: #8a1b1e;" :style="$vuetify.display.smAndDown?'font-size:1.5rem;letter-spacing: 0.5rem':'font-size:4rem;letter-spacing: 1rem'">EHSAN NEYZAN</h1>
     </v-col>
     <v-col cols="12" class="d-flex justify-center">
-        <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-10">mdi-music</v-icon>همه آلبوم ها</v-btn>
+        <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-5">mdi-music</v-icon>همه آلبوم ها</v-btn>
     </v-col>
     <v-col cols="12">
       <Footer></Footer>
@@ -65,7 +65,7 @@ watch(
     transform: translateY(0px) scale(1);
   }
   100% {
-    transform: translateY(-90%) scale(0.3);
+    transform: translateY(-105%) scale(0.2);
   }
 }
 @keyframes moveBottomLeft {
@@ -82,7 +82,7 @@ watch(
       transform: translateY(0px) scale(0.8);
     }
     100% {
-      transform: translateY(-200%) scale(0.5); /* کمتر حرکت می‌کنه و بزرگتر میمونه */
+      transform: translateY(-110%) scale(0.45); /* کمتر حرکت می‌کنه و بزرگتر میمونه */
     }
   }
 

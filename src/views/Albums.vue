@@ -8,12 +8,20 @@
           <v-card-title class="text-center text-white py-8">آلبوم ها</v-card-title>
           <v-card-text>
             <v-card
-              class="rounded-xl cursor-pointer mt-5 w-100"
-              image="/imgs/manosedabezan.jpg"
-              height="auto"
-              max-width="100%"
-              style="aspect-ratio: 16 / 9; object-fit: cover;"
-            ></v-card>
+  class="rounded-xl mx-auto"
+  width="100%"
+  max-width="200"
+  height="200"
+  flat
+  style="background: transparent; overflow: hidden;"  
+>
+  <v-img
+    src="/imgs/manosedabezan.jpg"
+    cover
+    height="100%"
+    width="100%"
+  ></v-img>
+</v-card>
           </v-card-text>
         </v-card>
       </v-col>
@@ -24,18 +32,27 @@
           <v-card-title class="text-center text-white py-8">آهنگ ها</v-card-title>
           <v-card-text class="mx-4 rounded-xl pa-8 mb-5" style="background: transparent;">
             <v-row>
-              <v-col class="d-flex justify-center" cols="12" sm="4" md="3"
+              <v-col class="d-flex justify-center" cols="6" sm="4" md="3"
                      v-for="(track , index) in tracks" :key="index">
+                      <!-- <v-hover v-slot="{ isHovering, props }"> -->
                 <v-card v-on:click="getTrack(index)"
-                        :width="$vuetify.display.smAndDown?300:190"
-                        :height="$vuetify.display.smAndDown?300:190"
+                v-bind="props"
+                        :width="$vuetify.display.smAndDown?300:300"
+                        :height="$vuetify.display.smAndDown?300:300"
                         class="rounded-xl">
-                  <v-img :height="$vuetify.display.smAndDown?'250':'150px'" :src="track.cover" cover></v-img>
-                  <v-card-title class="h-100 text-white text-center"
-                                style="font-size: 1rem;background: rgba(34,34,34 ,0.5);">
-                    {{ track.titleFa }}
-                  </v-card-title>
+                  <v-img 
+                   :height="$vuetify.display.smAndDown?'300':'300px'" :src="track.cover" cover>
+                    <v-expand-transition>
+            <div
+              class="d-flex v-card--reveal"
+              style="height: 100%;background: rgba(34,34,34 ,0.5);color: white;font-size: 1.1rem;"
+            >
+             {{ track.titleFa }}
+            </div>
+          </v-expand-transition>
+                  </v-img>
                 </v-card>
+                <!-- </v-hover> -->
               </v-col>
             </v-row>
           </v-card-text>
@@ -46,134 +63,173 @@
 
         <!-- کارت وسط با پلیر -->
 <v-dialog
+v-if="$vuetify.display.mdAndDown"
   v-model="show"
   fullscreen
   hide-overlay
   persistent
   transition="slide-up-fullscreen"
-  :class="$vuetify.display.mdAndUp?'d-none':''"
 >
-        
-          <v-card max-width="auto" width="auto" class="rounded-xl center-card text-center" style="background: rgba(34,34,34 ,0.9);">
-             <!-- <v-toolbar style="background: transparent">
-          <v-toolbar-items>
-            <v-btn
-            icon="mdi-close"
-            @click="show = false"
-            
-          ></v-btn>
-          </v-toolbar-items>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn color="primary" @click="Bottom">
-          {{ showBottom ? 'بستن پلیر پایین' : 'نمایش پلیر پایین' }}
-        </v-btn>
-          </v-toolbar-items>
-        </v-toolbar> -->
-        <v-card class="rounded-xl mx-auto px-8" style="background: rgba(0,0,0,0.5); max-width: 95vw; width: 100%;">
-<v-row class="py-4">
-  <v-col cols="12" class="text-center"><v-btn @click="Bottom" icon="mdi-chevron-down" size="large" color="white">
-          
-        </v-btn></v-col>
-</v-row>
-<v-divider color="white"></v-divider>
-          <v-card-title class="text-center text-white mt-6">
-            متن آهنگ {{ title ? title : 'منو صدا بزن' }}
-          </v-card-title>
-          <div class="lyrics-box text-white my-2" ref="lyricsBox">
-            <div v-for="(line, index) in tracks[selectedTrackIndex].timedLyrics"
-                 :key="index"
-                 :ref="el => lineRefs[index] = el"
-                 :class="{ active: currentLine === index }">
-              {{ line.text }}
-            </div>
+  <!-- کل صفحه -->
+  <v-card
+    class="d-flex flex-column align-center justify-start pa-0"
+    style="background: rgba(20,20,20,0.9); width: 100vw; height: 100vh; overflow-y: auto;"
+  >
+    <!-- دکمه بستن -->
+    <div class="w-100 text-center py-4">
+      <v-btn @click="Bottom" icon="mdi-chevron-down" size="large" color="white" class="control-btn"></v-btn>
+    </div>
+    <v-divider color="white" class="w-100"></v-divider>
+    <!-- محتوا (متن آهنگ + پلیر) -->
+    <div class="d-flex flex-column align-center flex-grow-1 px-4 py-6" style="width: 100%;">
+      <!-- 🎵 متن آهنگ -->
+      <!-- 🎧 پلیر -->
+      <v-card
+        class="player-card pa-0 mx-auto"
+        elevation="0"
+        style="background: rgba(34,34,34 ,0.8); border-radius: 25px; width: 90%; max-width: 580px;height: 650px;"
+      >
+        <v-card
+        flat
+        class="lyrics-card mb-4 px-4 py-3"
+        style="background: rgba(34,34,34 ,0.5); width: 100%; max-width: 600px;height: 320px;"
+      >
+        <div class="lyrics-box text-white" ref="lyricsBox">
+          <div
+            v-for="(line, index) in tracks[selectedTrackIndex]?.timedLyrics || []"
+            :key="index"
+            :ref="el => lineRefs[index] = el"
+            :class="{ active: currentLine === index }"
+            class="my-1"
+          >
+            {{ line.text }}
           </div>
-
-          <!-- پلیر داخل دیو وسط -->
-          <!-- <v-card-text class="rounded-xl text-center text-white"> -->
-            <div class="custom-player" dir="ltr">
-              <button @click="togglePlay" class="player-btn">
-                <span v-if="!isPlaying">▶</span>
-                <span v-else>⏸</span>
-              </button>
-              <span class="time">{{ formatTime(currentTime) }}</span>
-              <div class="progress-container" @click="seek($event)">
-                <div class="progress-bar">
-                  <div class="progress" :style="{ width: progress + '%' }"></div>
-                </div>
-              </div>
-              <span class="time">{{ formatTime(duration) }}</span>
-              <button class="player-btn" @click="toggleMute">
-                <span v-if="!isMuted">🔊</span>
-                <span v-else>🔇</span>
-              </button>
-            </div>
-        </v-card>
-              <!-- </v-card-text> -->
-
-            <!-- </v-card> -->
-          </v-card>
-        </v-dialog>
+        </div>
+      </v-card>
+        <v-card-text class="text-center pt-5 pb-1">
+         <h3 class="font-weight-bold mb-1" style="color:white;"> آهنگ {{ title || 'منو صدا بزن' }}</h3>
+          <p class="font-weight-bold my-6" style="color:#666;">آلبوم منو صدا بزن</p>
+          <p class="font-weight-bold py-2" style="color:white;font-size: 1.2rem;">{{ formatTime(currentTime) }}</p>
+        </v-card-text>
+        <div class="px-8 pb-8 text-center" dir="ltr">
+           <input
+  type="range"
+  min="0"
+  max="100"
+  v-model="progress"
+  class="progress-slider"
+  @input="onSeek"
+/>
+          <div class="mt-6 d-flex justify-space-around align-center">
+            <button class="control-btn small" @click="prevTrack">
+              <v-icon size="small" color="#555">mdi-skip-previous</v-icon>
+            </button>
+            <button class="control-btn small" @click="togglePlay">
+              <v-icon size="small" color="#555">{{ isPlaying ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+            </button>
+            <button class="control-btn small" @click="nextTrack">
+              <v-icon size="small" color="#555">mdi-skip-next</v-icon>
+            </button>
+          </div>
+        </div>
+      </v-card>
+    </div>
+  </v-card>
+</v-dialog>
         <!-- کارت پایین فیکس با پلیر -->
         <transition name="bounce">
-          <v-card :class="$vuetify.display.mdAndUp?'d-none':''" v-show="showBottom" class="bottom-fixed-card text-center" style="background: transparent;position: relative;">
+          <v-card :class="$vuetify.display.lgAndUp?'d-none':''" v-show="showBottom" class="bottom-fixed-card text-center" style="background: transparent;position: relative;">
             <v-card-text class="rounded-xl text-center text-white px-8">
-              <div class="custom-player" dir="ltr" style="border-radius: 50px;max-width: 1000px;">
+              <div class="custom-player" dir="ltr" style="border-radius: 50px;max-width: 1000px;background: rgba(34,34,34 ,0.8);">
                 <button @click="togglePlay" class="player-btn">
-                  <span v-if="!isPlaying">▶</span>
-                  <span v-else>⏸</span>
+                 <v-icon size="small" v-if="!isPlaying">mdi-play</v-icon>
+                 <v-icon size="small" v-else>mdi-pause</v-icon>
                 </button>
                 <span class="time">{{ formatTime(currentTime) }}</span>
                 <div class="progress-container" @click="seek($event)">
-                  <div class="progress-bar">
+                  <!-- <div class="progress-bar">
                     <div class="progress" :style="{ width: progress + '%' }"></div>
-                  </div>
+                  </div> -->
+                  <input
+  type="range"
+  min="0"
+  max="100"
+  v-model="progress"
+  class="progress-slider"
+  @input="onSeek"
+/>
                 </div>
                 <span class="time">{{ formatTime(duration) }}</span>
                 <button class="player-btn" @click="toggleMute">
-                  <span v-if="!isMuted">🔊</span>
-                  <span v-else>🔇</span>
+                  <v-icon size="small" v-if="!isMuted">mdi-volume-high</v-icon>
+                <v-icon size="small" v-else>mdi-volume-off</v-icon>
                 </button>
               </div>
             </v-card-text>
-            <v-btn  class="text-white" icon style="background: linear-gradient(145deg, #111, #222);position: absolute;top: 0;right: 50%;transform: translate(50%,10%);"
+            <v-btn class="text-white" icon style="background: rgba(34,34,34 ,0.5);;position: absolute;top: 0;right: 50%;transform: translate(50%,10%);"
                    @click="top">
               <v-icon size="x-large">mdi-chevron-up</v-icon>
             </v-btn>
           </v-card>
         </transition>
-
+        <!-- ستون سوم -->
       </v-col>
       <v-col class="h-auto pa-4" cols="12" lg="" style="background: transparent" :class="$vuetify.display.mdAndDown?'d-none':''">
-        <v-card class="rounded-xl h-100 px-8" style="background: rgba(34,34,34 ,0.5);; max-width: 95vw; width: 100%;">
-          <v-card-title class="text-center text-white py-10">
-            متن آهنگ {{ title ? title : 'منو صدا بزن' }}
-          </v-card-title>
-          <div class="lyrics-box text-white my-2" ref="lyricsBox">
-            <div v-for="(line, index) in tracks[selectedTrackIndex].timedLyrics"
-                 :key="index"
-                 :ref="el => lineRefs[index] = el"
-                 :class="{ active: currentLine === index }">
-              {{ line.text }}
-            </div>
+        <v-card class="rounded-xl h-100 " style="background: rgba(34,34,34 ,0.5); max-width: 100vw; width: 100%;">
+          <div class="d-flex flex-column align-center flex-grow-1 px-4 py-6" style="width: 100%;">
+      <!-- 🎵 متن آهنگ -->
+      <!-- 🎧 پلیر -->
+      <v-card
+        class="player-card pa-0 mx-auto"
+        elevation="0"
+        style="background: transparent; border-radius: 25px; width: 90%; max-width: 580px;height: 600px;"
+      >
+        <v-card
+        flat
+        class="lyrics-card mb-4 px-4 py-3"
+        style="background: transparent; width: 100%; max-width: 600px;height: 320px;"
+      >
+        <div class="lyrics-box text-white" ref="lyricsBox">
+          <div
+            v-for="(line, index) in tracks[selectedTrackIndex]?.timedLyrics || []"
+            :key="index"
+            :ref="el => lineRefs[index] = el"
+            :class="{ active: currentLine === index }"
+            class="my-1"
+          >
+            {{ line.text }}
           </div>
-            <div class="custom-player" dir="ltr">
-              <button @click="togglePlay" class="player-btn">
-                <span v-if="!isPlaying">▶</span>
-                <span v-else>⏸</span>
-              </button>
-              <span class="time">{{ formatTime(currentTime) }}</span>
-              <div class="progress-container" @click="seek($event)">
-                <div class="progress-bar">
-                  <div class="progress" :style="{ width: progress + '%' }"></div>
-                </div>
-              </div>
-              <span class="time">{{ formatTime(duration) }}</span>
-              <button class="player-btn" @click="toggleMute">
-                <span v-if="!isMuted">🔊</span>
-                <span v-else>🔇</span>
-              </button>
-            </div>
+        </div>
+      </v-card>
+        <v-card-text class="text-center pt-5 pb-1">
+          <h3 class="font-weight-bold mb-1" style="color:white;"> آهنگ {{ title || 'منو صدا بزن' }}</h3>
+          <p class="font-weight-bold my-2" style="color:#666;">آلبوم منو صدا بزن</p>
+                    <p class="font-weight-bold py-2" style="color:white;font-size: 1.2rem;">{{ formatTime(currentTime) }}</p>
+
+        </v-card-text>
+        <div class="px-8 pb-8 text-center" dir="ltr">
+           <input
+  type="range"
+  min="0"
+  max="100"
+  v-model="progress"
+  class="progress-slider"
+  @input="onSeek"
+/>
+          <div class="mt-6 d-flex justify-space-around align-center">
+            <button class="control-btn small" @click="prevTrack">
+              <v-icon size="small" color="#555">mdi-skip-previous</v-icon>
+            </button>
+            <button class="control-btn small" @click="togglePlay">
+              <v-icon size="small" color="#555">{{ isPlaying ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+            </button>
+            <button class="control-btn small" @click="nextTrack">
+              <v-icon size="small" color="#555">mdi-skip-next</v-icon>
+            </button>
+          </div>
+        </div>
+      </v-card>
+    </div>
         </v-card>
       </v-col>
     </v-row>
@@ -203,16 +259,29 @@ const currentLine = ref(0);
 const lineRefs = ref([]) 
 const lyricsBox = ref(null); 
 onMounted(() => {
-  // audioPlayer.value = document.createElement('audio');
+  const firstTrack = tracks[0];
+  selectedTrackIndex.value = 0;
+  title.value = firstTrack.titleFa;
+
+  const audio = audioPlayer.value;
+  audio.src = firstTrack.link;
+
+  // وقتی فایل آماده شد
+  audio.onloadedmetadata = () => {
+    currentTime.value = 0;
+    progress.value = 0;
+  }
+
+  audio.load();
 });
 const cardStyle = ref({ background: 'rgba(34,34,34,0.5)', position: 'relative' });
 function Bottom(){
-  showBottom.value = !showBottom.value;
-  show.value = !show.value;
+  showBottom.value = true;
+  show.value = false;
 }
 function top(){
-  showBottom.value = !showBottom.value;
-  show.value = !show.value;
+  showBottom.value = false;
+  show.value = true;
 }
 function togglePlay() {
   const audio = audioPlayer.value;
@@ -225,6 +294,29 @@ function togglePlay() {
     audio.pause();
     isPlaying.value = false;
   }
+}
+function prevTrack() {
+  if (selectedTrackIndex.value > 0) {
+    selectedTrackIndex.value--;
+  } else {
+    // اگر اولین آهنگ است، می‌توان به آخرین برگردد
+    selectedTrackIndex.value = tracks.length - 1;
+  }
+  const track = tracks[selectedTrackIndex.value];
+  title.value = track.titleFa;
+  currentLine.value = 0;
+}
+
+function nextTrack() {
+  if (selectedTrackIndex.value < tracks.length - 1) {
+    selectedTrackIndex.value++;
+  } else {
+    // اگر آخرین آهنگ است، می‌توان به اول برگردد
+    selectedTrackIndex.value = 0;
+  }
+   const track = tracks[selectedTrackIndex.value];
+  title.value = track.titleFa;
+  currentLine.value = 0;
 }
 
 function onTimeUpdate() {
@@ -260,7 +352,14 @@ function seek(event) {
   currentTime.value = newTime;
   progress.value = percent * 100;
 }
+function onSeek() {
+  const audio = audioPlayer.value;
+  if (!audio) return;
 
+  const newTime = (progress.value / 100) * audio.duration;
+  audio.currentTime = newTime;
+  currentTime.value = newTime;
+}
 function formatTime(sec) {
   if (!sec) return "0:00";
   const m = Math.floor(sec / 60);
@@ -270,6 +369,7 @@ function formatTime(sec) {
 
 async function getTrack(index) {
   show.value = !show.value;
+  showBottom.value = false;
   title.value = tracks[index].titleFa;
   selectedTrackIndex.value = index;
   currentLine.value = 0;
@@ -286,10 +386,12 @@ async function getTrack(index) {
   if (lyricsBox.value) {
     lyricsBox.value.scrollTop = 0;
   }
-  window.scrollTo({
-    top: document.documentElement.scrollHeight,
-    behavior: 'smooth',
-  });
+  if (window.innerWidth < 768) {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
 
   // 🎵 شروع پخش
   audio.play();
@@ -786,4 +888,74 @@ timedLyrics: [
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(100%); opacity: 0; }
 }
+.player-card {
+  box-shadow:
+    10px 10px 20px #cfd5db,
+    -10px -10px 20px #ffffff;
+}
+
+.progress-slider {
+  width: 100%;
+  height: 4px;
+  appearance: none;
+  background: #dfe3e8;
+  border-radius: 5px;
+  outline: none;
+}
+.progress-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.control-btn {
+  border: none;
+  border-radius: 50%;
+  background: #f2f5f9;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+/* .control-btn:hover{
+  box-shadow:
+    6px 6px 12px #cfd5db,
+    -6px -6px 12px #ffffff;
+} */
+.control-btn.small {
+  width: 55px;
+  height: 55px;
+}
+.control-btn.large {
+  width: 90px;
+  height: 90px;
+}
+.control-btn:active {
+  box-shadow:
+    inset 6px 6px 12px #cfd5db,
+    inset -6px -6px 12px #ffffff;
+}
+
+.lyrics-box {
+  max-height: 250px;
+  overflow-y: auto;
+}
+.active {
+  color: #00e676;
+  font-weight: bold;
+}
+.v-card--reveal {
+    align-items: center;
+    bottom: 0;
+    justify-content: center;
+    opacity: .9;
+    position: absolute;
+    width: 100%;
+  }
 </style>
