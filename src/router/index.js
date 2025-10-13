@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import Albums from '../views/Albums.vue';
+import SongLyrics from '../views/SongLyrics.vue'
 const routes = [
   { path: '/', 
     name:'Home',
@@ -10,6 +11,11 @@ const routes = [
    { path: '/albums', 
     name:'Albums',
     component:Albums,
+    meta: { breadcrumb: 'تمام اهنگ ها' }
+   },
+   { path: '/songlyrics', 
+    name:'SongLyrics',
+    component:SongLyrics,
     meta: { breadcrumb: 'تمام اهنگ ها' }
    },
 ];

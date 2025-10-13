@@ -1,7 +1,7 @@
 <template>
   <footer
     class="mx-auto py-4 text-white fixed-footer"
-    style="max-width: 300px"
+    style="max-width: 300px;"
   >
     <v-row class="d-flex justify-center align-center">
       <v-col cols="3">
@@ -42,11 +42,11 @@
 
 <style scoped>
 .fixed-footer {
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
-  background: transparent; /* می‌تونی مثلاً #000 یا #111 بزاری */
-  z-index: 100;
+  right: 0; */
+  /* background: transparent; می‌تونی مثلاً #000 یا #111 بزاری */
+  /* z-index: 100; */
 }
 </style>

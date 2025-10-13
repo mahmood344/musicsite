@@ -11,12 +11,11 @@
       <!-- موبایل: لوگو -->
       <v-col cols="4" class="d-flex d-md-none justify-center">
          <router-link :to="{name:'Home'}">
-          <v-avatar size="80" v-if="!showMobileSearch" v-show="$router.currentRoute.value.name === 'Albums'">
-          <v-img alt="Logo" src="/imgs/logo.jpg"></v-img>
+          <v-avatar size="60" style="border:1px solid red" v-if="!showMobileSearch" v-show="$router.currentRoute.value.name === 'Albums'">
+          <v-img alt="Logo" src="/imgs/logo.jpg" v-if="!showMobileSearch" v-show="$router.currentRoute.value.name === 'Albums'"></v-img>
         </v-avatar>
          </router-link>
       </v-col>
-
       <!-- موبایل: آیکون جستجو -->
       <v-col cols="4" class="d-flex d-md-none justify-end">
         <v-btn icon @click="toggleMobileSearch" :class="showMobileSearch?'mt-4':'mt-0'">
@@ -28,7 +27,7 @@
       <v-col md="4" class="d-none d-md-flex justify-space-around menu">
         <router-link :to="{name:'Home'}"><v-btn variant="plain">خانه</v-btn></router-link>
         <router-link :to="{name:'Albums'}"><v-btn variant="plain">آلبوم‌ها</v-btn></router-link>
-        <v-btn variant="plain">کنسرت ها</v-btn>
+        <router-link :to="{name:'SongLyrics'}"><v-btn variant="plain">کنسرت ها</v-btn></router-link>
         <v-btn variant="plain">ویدیو ها</v-btn>
         <v-btn variant="plain">درباره ما</v-btn>
         <v-btn variant="plain">تماس با ما</v-btn>
@@ -37,7 +36,7 @@
       <!-- دسکتاپ: لوگو -->
       <v-col md="4" class="d-none d-md-flex justify-center">
         <router-link :to="{name:'Home'}">
-          <v-avatar size="80" v-show="$router.currentRoute.value.name === 'Albums'">
+          <v-avatar size="60"  v-show="$router.currentRoute.value.name === 'Albums'">
             <v-img alt="Logo" src="/imgs/logo.jpg"></v-img>
           </v-avatar>
         </router-link>
@@ -77,7 +76,7 @@
       <v-list class="pt-8 menu">
         <router-link :to="{name:'Home'}"><v-list-item link>خانه</v-list-item></router-link>
         <router-link :to="{name:'Albums'}"><v-list-item link>آلبوم‌ها</v-list-item></router-link>
-        <v-list-item link>کنسرت ها</v-list-item>
+        <router-link :to="{name:'SongLyrics'}"><v-list-item link>کنسرت ها</v-list-item></router-link>
         <v-list-item link>ویدیو ها</v-list-item>
         <v-list-item link>درباره ما</v-list-item>
         <v-list-item link>تماس با ما</v-list-item>
@@ -95,19 +94,16 @@
 
 <script setup>
 import { ref } from 'vue';
-
 const drawer = ref(false);
 const showMobileSearch = ref(false);
 const searchQuery = ref('');
-
 function toggleMobileSearch() {
   showMobileSearch.value = !showMobileSearch.value;
 }
 </script>
-
 <style scoped>
-/* انیمیشن slide-down */
 
 
-.menu a { color: white; /* همه لینک‌ها سفید */ text-decoration: none; transition: color 0.3s ease; } /* وقتی روت فعاله */ .menu a.router-link-active { color: #8a1b1e } /* اگر فقط بخوای رنگ لینک دقیقاً برابر مسیر فعلی تغییر کنه (نه لینک‌های parent) */ .menu a.router-link-exact-active { color: #8a1b1e; }
+
+.menu a { color: white; text-decoration: none; transition: color 0.3s ease; } .menu a.router-link-active { color: #8a1b1e } /* اگر فقط بخوای رنگ لینک دقیقاً برابر مسیر فعلی تغییر کنه (نه لینک‌های parent) */ .menu a.router-link-exact-active { color: #8a1b1e; }
 </style>

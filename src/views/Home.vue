@@ -1,8 +1,9 @@
+<!-- :height="$vuetify.display.smAndDown?500:950" -->
 <template>
- <v-card flat max-width="1800" :height="$vuetify.display.smAndDown?500:950" class="d-flex align-center justify-center bg-transparent mx-auto" style="overflow: visible;">
+ <v-card flat max-width="1800" class="h-screen d-flex align-center justify-center bg-transparent mx-auto" style="overflow: visible;">
   <v-row class="w-100">
     <v-col cols="12" class="d-flex justify-center">
-        <v-avatar :size=$vuetify.display.smAndDown?200:400 :class="store.startAnimation?'logoTop':'logoBottom'">
+        <v-avatar :size=$vuetify.display.smAndDown?200:300 :class="store.startAnimation?'logoTop':'logoBottom'">
       <v-img
         alt="John"
         src="/imgs/logo.jpg"
@@ -14,18 +15,31 @@
     <v-col cols="12" class="d-flex justify-center">
         <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-5">mdi-music</v-icon>همه آلبوم ها</v-btn>
     </v-col>
-    <v-col cols="12">
-      <Footer></Footer>
+    <v-col cols="12" class="d-flex justify-center my-5">
+    <canvas ref="canvas"></canvas>
     </v-col>
   </v-row>
 </v-card>
+<v-row>
+  <v-col cols="12">
+      <Footer></Footer>
+    </v-col>
+</v-row>
 </template>
 
 <script setup>
-import {ref , watch} from 'vue';
+import {ref , watch , onMounted } from 'vue';
 import { useRouter , useRoute } from 'vue-router';
 import { StateManegment } from '../store/index.js';
 import Footer from '../components/Footer.vue';
+onMounted(() => {
+  QRCode.toCanvas(canvas.value, text, { width: 100 , height:100n }, function (error) {
+    if (error) console.error(error)
+  })
+})
+import QRCode from 'qrcode'
+const canvas = ref(null)
+const text = 'https://example.com'
 const store = StateManegment();
 const Router = useRouter();
 const Route = useRoute();
@@ -65,7 +79,7 @@ watch(
     transform: translateY(0px) scale(1);
   }
   100% {
-    transform: translateY(-105%) scale(0.2);
+    transform: translateY(-99%) scale(0.2);
   }
 }
 @keyframes moveBottomLeft {
@@ -82,7 +96,7 @@ watch(
       transform: translateY(0px) scale(0.8);
     }
     100% {
-      transform: translateY(-110%) scale(0.45); /* کمتر حرکت می‌کنه و بزرگتر میمونه */
+      transform: translateY(-145%) scale(0.5); 
     }
   }
 
@@ -101,4 +115,11 @@ watch(
 .logoBottom{
   animation: moveBottomLeft 0.5s ease-in-out forwards;
 }
+
 </style>
+
+
+
+
+
+
