@@ -1,13 +1,15 @@
 <template>
   <v-card flat class="w-100 mx-auto mt-4" max-width="900" style="background: transparent;">
-    <div style="margin: auto; margin-top: 10rem; max-width: 800px; height: 200px;border: 1px solid white;border-top-right-radius: 100px;border-bottom-right-radius: 100px;">
-        <div style="background: grey; width: 200px;height: 100%;border-radius: 100%;border: 1px solid white;transform: scale(1.2);"></div>
-    </div>
+    <div
+  class="outer-box"
+>
+  <div class="inner-logo"></div>
+</div>
     <v-row class="h-auto ga-3" align="stretch">
       <v-col class="h-100 pa-4" cols="12" style="background: transparent">
         <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
-          <v-card-title class="text-center text-white py-8">آهنگ ها</v-card-title>
-          <v-card-text class="mx-4 rounded-xl pa-8 mb-5" style="background: transparent;">
+          <v-card-title class="text-center text-white py-8"> متن آهنگ های کنسرت  2 آبان</v-card-title>
+          <v-card-text class="mx-4 rounded-xl pa-  mb-5" style="background: transparent;">
             <v-row>
               <v-col cols="12">
                 <v-expansion-panels v-model="activePanel">
@@ -26,7 +28,7 @@
                         <div v-for="(line, i) in track.timedLyrics.split('…')" :key="i">
                           <div class="lyric-line-box">{{ line }}</div>
                           <div v-if="i < track.timedLyrics.split('…').length - 1" class="divider">
-                            »──|♫●|──«
+                            <!-- »──|♫●|──« -->
                           </div>
                         </div>
                       </div>
@@ -35,7 +37,7 @@
                         <div v-for="(line, i) in track.timedLyrics" :key="i">
                           <div class="lyric-line-box">{{ line.text }}</div>
                           <div v-if="i < track.timedLyrics.length - 1" class="divider">
-                            »──|♫●|──«
+                            <!-- »──|♫●|──« -->
                           </div>
                         </div>
                       </div>
@@ -67,7 +69,8 @@ const getPanelStyle = (index) => {
     color: isActive ? 'white' : '#222',
     transition: 'all 0.4s ease',
     boxShadow: isActive ? '0 0 20px rgba(255,255,255,0.2)' : 'none',
-    borderRadius: '12px'
+    borderRadius: '12px',
+     transform: isActive ? 'scale(1.05)' : 'scale(1)',
   }
 }
 
@@ -81,6 +84,35 @@ const formatLyrics = (lyrics) => {
   return lyrics.map(l => l.text);
 };
     const tracks = [{
+        title:'Mano Seda Bezan',
+        titleFa:'پالادیو',
+        cover:'/imgs/manosedabezan.jpg',
+        link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%201%20(320).mp3',
+timedLyrics: [
+    { time: 16, text: "آهنگساز: احسان نی زن          ترانه سرا : احسان نی زن          تنظیم کننده: احسان نی زن" },
+    { time: 16, text: "حرفامو گفتم نگفته نمونه" },
+    { time: 21, text: "یه ترسی تو چشماته که حال هردومونه…" },
+  { time: 27, text: "منو با همه تنهاییام تنها گذاشتی" },
+  { time: 33, text: "تو دست از سر دنیای من برنداشتی" },
+  { time: 40, text: "یه روزی دلتنگم میشی یادت باشه…" },
+  { time: 46, text: "چجوری به قلبت میگی ساکت باشه" },
+  { time: 51, text: "یه چیزی بگو آروم بشم" },
+  { time: 57, text: "یه روزی دلتنگت میشم یادم میره…" },
+  { time: 63, text: "همیشه قلبمو به هر کی دادم میره" },
+  { time: 69, text: "یه چیزی بگو آروم بشم" },
+  { time: 109, text: "یه کاری کنم تو قلب من آروم بگیری…" },
+  { time: 114, text: "از این جا به بعد جایی نری" },
+  { time: 118, text: "ببین حالتو دیوونه تو هر جا که باشی" },
+  { time: 124, text: "تو دنیای من زیباتری…" },
+  { time: 130, text: "یه روزی دلتنگم میشی یادت باشه…" },
+  { time: 136, text: "چجوری به قلبت میگی ساکت باشه" },
+  { time: 141, text: "یه چیزی بگو آروم بشم" },
+  { time: 147, text: "یه روزی دلتنگت میشم یادم میره…" },
+  { time: 153, text: "همیشه قلبمو به هر کی دادم میره" },
+  { time: 159, text: "یه چیزی بگو آروم بشم" },
+]
+    },
+    {
         title:'Mano Seda Bezan',
         titleFa:'منو صدا بزن',
         cover:'/imgs/manosedabezan.jpg',
@@ -115,26 +147,39 @@ timedLyrics: [
         cover:'/imgs/manosedabezan.jpg',
         link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%201%20(320).mp3',
 timedLyrics: [
-    { time: 16, text: "حرفامو گفتم نگفته نمونه" },
-    { time: 21, text: "یه ترسی تو چشماته که حال هردومونه…" },
-  { time: 27, text: "منو با همه تنهاییام تنها گذاشتی" },
-  { time: 33, text: "تو دست از سر دنیای من برنداشتی" },
-  { time: 40, text: "یه روزی دلتنگم میشی یادت باشه…" },
-  { time: 46, text: "چجوری به قلبت میگی ساکت باشه" },
-  { time: 51, text: "یه چیزی بگو آروم بشم" },
-  { time: 57, text: "یه روزی دلتنگت میشم یادم میره…" },
-  { time: 63, text: "همیشه قلبمو به هر کی دادم میره" },
-  { time: 69, text: "یه چیزی بگو آروم بشم" },
-  { time: 109, text: "یه کاری کنم تو قلب من آروم بگیری…" },
-  { time: 114, text: "از این جا به بعد جایی نری" },
-  { time: 118, text: "ببین حالتو دیوونه تو هر جا که باشی" },
-  { time: 124, text: "تو دنیای من زیباتری…" },
-  { time: 130, text: "یه روزی دلتنگم میشی یادت باشه…" },
-  { time: 136, text: "چجوری به قلبت میگی ساکت باشه" },
-  { time: 141, text: "یه چیزی بگو آروم بشم" },
-  { time: 147, text: "یه روزی دلتنگت میشم یادم میره…" },
-  { time: 153, text: "همیشه قلبمو به هر کی دادم میره" },
-  { time: 159, text: "یه چیزی بگو آروم بشم" },
+   { time: 0, text: "کاری کردی با دلم که قد یه دریا شه" },
+  { time: 6, text: "قسم آخر این مرد رنگ چشمات باشه" },
+  { time: 12, text: "دست می‌ذارم روی قلبم اسمت هر جا اومد" },
+  { time: 18, text: "چه‌جوری میشه به چشم یه نفر این‌همه زیبا اومد" },
+  { time: 24, text: "مستم کن از عطر موهات که از همه دل کندم" },
+  { time: 30, text: "موهاتو وا کن، چشمای شب رو خودم می‌بندم" },
+  { time: 36, text: "من از همه دل کندم" },
+  { time: 42, text: "برای زندگی اگر دلیلی بهتر از تو هست" },
+  { time: 48, text: "به‌جای اسمت همه‌جا بذار صدات کنم نفس" },
+  { time: 54, text: "وقتی که پیش من میای، دریایی از آرامشم" },
+  { time: 60, text: "ساعتو می‌کشم عقب، بیشتر بهت خیره بشم" },
+  { time: 66, text: "صدام بزن، صدای تو منو به رویا می‌بره" },
+  { time: 72, text: "هرچی به‌جز صدای تو رو قلب من بی‌اثره" },
+  { time: 78, text: "حرفامو گفتم نگفته نمونه" },
+  { time: 84, text: "یه ترسی تو چشماته که حال هر دومونه" },
+  { time: 90, text: "منو با همه تنهاییام تنها گذاشتی" },
+  { time: 96, text: "تو دست از سر دنیای من برنداشتی" },
+  { time: 102, text: "یه روزی دلتنگم می‌شی، یادت باشه" },
+  { time: 108, text: "چجوری به قلبت می‌گی ساکت باشه" },
+  { time: 114, text: "یه چیزی بگو آروم بشم" },
+  { time: 120, text: "یه روزی دلتنگت می‌شم، یادم می‌ره" },
+  { time: 126, text: "همیشه قلبمو به هر کی دادم می‌ره" },
+  { time: 132, text: "یه چیزی بگو آروم بشم" },
+  { time: 138, text: "یه کاری کنم تو قلب من آروم بگیری" },
+  { time: 144, text: "از این‌جا به بعد جایی نری" },
+  { time: 150, text: "ببین حالتو دیوونه، تو هر جا که باشی" },
+  { time: 156, text: "تو دنیای من زیباتری" },
+  { time: 162, text: "یه روزی دلتنگم می‌شی، یادت باشه" },
+  { time: 168, text: "چجوری به قلبت می‌گی ساکت باشه" },
+  { time: 174, text: "یه چیزی بگو آروم بشم" },
+  { time: 180, text: "یه روزی دلتنگت می‌شم، یادم می‌ره" },
+  { time: 186, text: "همیشه قلبمو به هر کی دادم می‌ره" },
+  { time: 192, text: "یه چیزی بگو آروم بشم" },
 ]
     },
     {
@@ -143,26 +188,34 @@ timedLyrics: [
         cover:'/imgs/manosedabezan.jpg',
         link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%201%20(320).mp3',
 timedLyrics: [
-    { time: 16, text: "حرفامو گفتم نگفته نمونه" },
-    { time: 21, text: "یه ترسی تو چشماته که حال هردومونه…" },
-  { time: 27, text: "منو با همه تنهاییام تنها گذاشتی" },
-  { time: 33, text: "تو دست از سر دنیای من برنداشتی" },
-  { time: 40, text: "یه روزی دلتنگم میشی یادت باشه…" },
-  { time: 46, text: "چجوری به قلبت میگی ساکت باشه" },
-  { time: 51, text: "یه چیزی بگو آروم بشم" },
-  { time: 57, text: "یه روزی دلتنگت میشم یادم میره…" },
-  { time: 63, text: "همیشه قلبمو به هر کی دادم میره" },
-  { time: 69, text: "یه چیزی بگو آروم بشم" },
-  { time: 109, text: "یه کاری کنم تو قلب من آروم بگیری…" },
-  { time: 114, text: "از این جا به بعد جایی نری" },
-  { time: 118, text: "ببین حالتو دیوونه تو هر جا که باشی" },
-  { time: 124, text: "تو دنیای من زیباتری…" },
-  { time: 130, text: "یه روزی دلتنگم میشی یادت باشه…" },
-  { time: 136, text: "چجوری به قلبت میگی ساکت باشه" },
-  { time: 141, text: "یه چیزی بگو آروم بشم" },
-  { time: 147, text: "یه روزی دلتنگت میشم یادم میره…" },
-  { time: 153, text: "همیشه قلبمو به هر کی دادم میره" },
-  { time: 159, text: "یه چیزی بگو آروم بشم" },
+    { time: 0, text: "به دریا زدم موج یاری نکرد" },
+  { time: 6, text: "منو از خیالت فراری نکرد" },
+  { time: 12, text: "به صحرا زدم از غم عشق تو" },
+  { time: 18, text: "بیابون با فکر تو کاری نکرد" },
+  { time: 24, text: "به صحرا زدم برنگرده دلم" },
+  { time: 30, text: "به دریا زدم قصه جذاب شه" },
+  { time: 36, text: "تو آتیش و وقتی یخ می‌زنم" },
+  { time: 42, text: "برای تو باید دلم آب شه" },
+  { time: 48, text: "برم سمت دریا، تمامش تویی" },
+  { time: 54, text: "برم رو به صحرا، تمامش تویی" },
+  { time: 60, text: "کجا از خیالت بذارم برم" },
+  { time: 66, text: "یه گوشه کناری نشونم بده" },
+  { time: 72, text: "یه راه فراری نشونم بده" },
+  { time: 78, text: "دیگه هیچ جایی ندارم برم" },
+  { time: 84, text: "خیال تو هم تیر هم سنگره" },
+  { time: 90, text: "خیال تو از رود جاری‌تره" },
+  { time: 96, text: "نشستم ببینم که این لعنتی" },
+  { time: 102, text: "منو در نهایت کجا می‌بره" },
+  { time: 108, text: "یه حسی که هم سنگ آرامشه" },
+  { time: 114, text: "منو سمت طوفان تو می‌کشه" },
+  { time: 120, text: "واسه درک حالم دعا می‌کنم" },
+  { time: 126, text: "که هر جای دنیایی طوفان شه" },
+  { time: 132, text: "برم سمت دریا، تمامش تویی" },
+  { time: 138, text: "برم رو به صحرا، تمامش تویی" },
+  { time: 144, text: "کجا از خیالت بذارم برم" },
+  { time: 150, text: "یه گوشه کناری نشونم بده" },
+  { time: 156, text: "یه راه فراری نشونم بده" },
+  { time: 162, text: "دیگه هیچ جایی ندارم برم" },
 ]
     },
     {
@@ -279,26 +332,30 @@ timedLyrics: [
         cover:'/imgs/manosedabezan.jpg',
         link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%207%20(320).mp3',
         timedLyrics:[
-  { time: 21, text: "مثل آخرای پاییز رنگ و بوی غم گرفتم" },
-  { time: 29, text: "خودمو دست تو دادم تورو از خودم گرفتم…" },
-  { time: 36, text: "بعد تو تو بغل کی بغضمو خالی کنم" },
-  { time: 44, text: "حال بی تو بودنامو جز خود تو من به کی حالی کنم" },
-  { time: 56, text: "قلبم جونم هم قد این تنها شدن نیست…" },
-  { time: 64, text: "هستم اما این زنده بودن حق من نیست" },
-  { time: 71, text: "رفتی دیدم من دیگه رویایی ندارم" },
-  { time: 79, text: "حتی زیر سقف خودم جایی ندارم…" },
-  { time: 119, text: "چقدر روزای بعد رفتنت سنگین" },
-  { time: 127, text: "برف کی بی وقفه داره رو سرم میشینه" },
-  { time: 134, text: "صورتم جنگل بارون زده تو پاییز…" },
-  { time: 142, text: "سیل برگام اگه داره تو خودم میریزه" },
-  { time: 153, text: "قلبم جونم هم قد این تنها شدن نیست…" },
-  { time: 160, text: "هستم اما این زنده بودن حق من نیست" },
-  { time: 168, text: "رفتی دیدم من دیگه رویایی ندارم" },
-  { time: 176, text: "حتی زیر سقف خودم جایی ندارم…" },
+  { time: 0, text: "نمیشه مثل تورو پیدا کرد" },
+  { time: 6, text: "نه میشه حسابی رو تو وا کرد" },
+  { time: 12, text: "نمیدونم خودمم موندم با تو باید چیکار کرد" },
+  { time: 18, text: "عاشق شدم و سخته از تو بشه فرار کرد" },
+  { time: 24, text: "من که مشهورم به این اینکه مغرورم" },
+  { time: 30, text: "چه کردی با قلبم که پیش چشمت انقد بی ارادم" },
+  { time: 36, text: "من بلد نیستم که از تو دور باشم" },
+  { time: 42, text: "یه جوری میخوامت که خودمو خیلی راحت یاد تو دادم" },
+  { time: 48, text: "خواستن تو که سختی یه جور عادته" },
+  { time: 54, text: "راحته هرجا باشم این دل ساده زیر سایته" },
+  { time: 60, text: "تو با خونسردی عاشقم کردی" },
+  { time: 66, text: "هرجا بری برمی‌گردی" },
+  { time: 72, text: "من که مشهورم به این اینکه مغرورم" },
+  { time: 78, text: "چه کردی با قلبم که پیش چشمت انقد بی ارادم" },
+  { time: 84, text: "من بلد نیستم که از تو دور باشم" },
+  { time: 90, text: "یه جوری میخوامت که خودمو خیلی راحت یاد تو دادم" },
+  { time: 96, text: "من که مشهورم به این اینکه مغرورم" },
+  { time: 102, text: "چه کردی با قلبم که پیش چشمت انقد بی ارادم" },
+  { time: 108, text: "من بلد نیستم که از تو دور باشم" },
+  { time: 114, text: "یه جوری میخوامت که خودمو خیلی راحت یاد تو دادم" }
 ]
     },
     {
-        title:'Chi Mishe Goft',
+        title:'Chi Mishe Goft ',
         titleFa:'چی میشه گفت',
         cover:'/imgs/manosedabezan.jpg',
         link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%205%20(320).mp3',
@@ -330,11 +387,104 @@ timedLyrics: [
 ]
     },
     {
-        title:'Bebin Haleto',
-        titleFa:'ببین حالتو',
+        title:'az to neveshtam',
+        titleFa:'از تو نوشتم',
         cover:'/imgs/manosedabezan.jpg',
         link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%202(320).mp3',
 timedLyrics: [
+    { time: 0, text: "این همه از تو نوشتم این همه ورق سوزوندم" },
+  { time: 6, text: "عمرم و برات گذاشتم این همه پای تو موندم" },
+  { time: 12, text: "حالا ول کنم برم من ازت نمی‌گذرم" },
+  { time: 18, text: "این همه خون به دلم شد حرفم و تو سینه کشتم" },
+  { time: 24, text: "از خودم به آینه گفتم زخم تو مونده رو مشتم" },
+  { time: 30, text: "حالا ول کنم برم من ازت نمی‌گذرم" },
+  { time: 36, text: "اگه دنیا رو میخواستی من بهت نه نمی‌گفتم" },
+  { time: 42, text: "منِ تنها رو میخواستی من بهت نه نمی‌گفتم" },
+  { time: 48, text: "چی میخواستی از غرورم که واست کنار نذاشتم" },
+  { time: 54, text: "دل دریا رو می‌خواستی من بهت نه نمی‌گفتم" },
+  { time: 60, text: "منو هر طرف کشوندی دور دنیای تو گشتم" },
+  { time: 66, text: "عشق و از خطر نترسون من که از خودم گذشتم" },
+  { time: 72, text: "حالا ول کنم برم من ازت نمی‌گذرم" },
+  { time: 78, text: "این همه از تو نوشتم" },
+  { time: 82, text: "این همه ورق سوزوندم" },
+  { time: 86, text: "عمرمو برات گذاشتم" },
+  { time: 90, text: "این همه پای تو موندم" },
+  { time: 94, text: "حالا ول کنم برم؟ من ازت نمی‌گذرم…" }
+]
+    },
+    
+    
+    
+    {
+        title:'bavar nakardi',
+        titleFa:'باور نکردی',
+        cover:'/imgs/manosedabezan.jpg',
+        link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%206%20(320).mp3',
+        timedLyrics:[
+  { time: 0, text: "دلشوره‌هامو کمتر نکردی" },
+  { time: 5, text: "گفتم تمومه باور نکردی" },
+  { time: 10, text: "بازم ندیدی چی آرزومه" },
+  { time: 15, text: "گفتی تمومه گفتم تمومه" },
+  { time: 21, text: "غیر از غرورم چی تو دلت بود" },
+  { time: 26, text: "میرم بفهمی کی عاشقت بود" },
+  { time: 31, text: "میرم بفهمی با رفتن من آینده‌ی تو زیبا نمیشه" },
+  { time: 38, text: "اندازه‌ی من تو کل دنیا دیوونه‌ی تو پیدا نمیشه" },
+  { time: 45, text: "میرم که پای دلشوره‌های بی‌وقفه‌ی تو هر شب نشینم" },
+  { time: 52, text: "میرم نباشم میرم بمیرم میرم تورو با کسی نبینم" },
+  { time: 59, text: "قلب تو قد دنیای من نیست" },
+  { time: 64, text: "میرم بفهمی این جای من نیست" },
+  { time: 69, text: "دیوونه‌بازیت جز بچگی نیست" },
+  { time: 74, text: "این حرص دریا از تشنگی نیست" },
+  { time: 79, text: "غیر از غرورم چی تو دلت بود" },
+  { time: 84, text: "میرم بفهمی کی عاشقت بود" },
+  { time: 89, text: "میرم بفهمی با رفتن من آینده‌ی تو زیبا نمیشه" },
+  { time: 96, text: "اندازه‌ی من تو کل دنیا دیوونه‌ی تو پیدا نمیشه" },
+  { time: 103, text: "میرم که پای دلشوره‌های بی‌وقفه‌ی تو هر شب نشینم" },
+  { time: 110, text: "میرم نباشم میرم بمیرم میرم تورو با کسی نبینم" },
+  { time: 117, text: "میرم بفهمی با رفتن من آینده‌ی تو زیبا نمیشه" }
+]
+    },
+    
+    {
+        title:'dard dori',
+        titleFa:'درد دوری',
+        cover:'/imgs/manosedabezan.jpg',
+        link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%209%20(320).mp3',
+        timedLyrics:[
+  { time: 0, text: "من که کل زندگیم جنگیدم" },
+  { time: 6, text: "از نگاه سرد تو ترسیدم" },
+  { time: 11, text: "گفته بودی که دلت با من نیست" },
+  { time: 16, text: "چرا این حرفتو دیر فهمیدم" },
+  { time: 22, text: "نمیدونم دیگه چی باید بشه" },
+  { time: 27, text: "که بفهمی درد دوریت کم نیست" },
+  { time: 32, text: "با من دیوونه کاری کردی" },
+  { time: 36, text: "که دیگه قبل تورو یادم نیست" },
+  { time: 41, text: "مثل آتیشی شدم سخته که خاموشم کنی" },
+  { time: 47, text: "من کسی نیستم که راحت بخوای فراموشم کنی" },
+  { time: 53, text: "منو از چیزی نترسون وقتی تنها موندم" },
+  { time: 59, text: "من همیشه فکر میکردم که تو برمیگردی" },
+  { time: 65, text: "یه روزی که جای من بودی خودت میفهمی" },
+  { time: 70, text: "که چرا با اینکه رفتی هنوز اینجا موندم" },
+  { time: 76, text: "کار من نیست اینکه میگن تورو نادیده بگیرم" },
+  { time: 81, text: "اینا که نمیدونن چرا واست میمیرم" },
+  { time: 86, text: "برگرد باید کاری کنی برام" },
+  { time: 91, text: "دست من نیست اینکه تورو نخوام" },
+  { time: 96, text: "مثل آتیشی شدم سخته که خاموشم کنی" },
+  { time: 102, text: "من کسی نیستم که راحت بخوای فراموشم کنی" },
+  { time: 108, text: "منو از چیزی نترسون وقتی تنها موندم" },
+  { time: 114, text: "من همیشه فکر میکردم که تو برمیگردی" },
+  { time: 120, text: "یه روزی که جای من بودی خودت میفهمی" },
+  { time: 125, text: "که چرا با اینکه رفتی هنوز اینجا موندم" },
+  { time: 131, text: "من همیشه فکر میکردم که تو برمیگردی" },
+  { time: 136, text: "یه روزی که جای من بودی خودت میفهمی" }
+]
+    },
+    {
+        title:'Bebin Haleto',
+        titleFa:'ببین حالتو',
+        cover:'/imgs/manosedabezan.jpg',
+        link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%2010%20(320).mp3',
+        timedLyrics:[
     { time: 16, text: "حرفامو گفتم نگفته نمونه" },
     { time: 21, text: "یه ترسی تو چشماته که حال هردومونه…" },
   { time: 27, text: "منو با همه تنهاییام تنها گذاشتی" },
@@ -357,33 +507,6 @@ timedLyrics: [
   { time: 159, text: "یه چیزی بگو آروم بشم" },
 ]
     },
-    
-    
-    
-    {
-        title:'Yadete',
-        titleFa:'یادته',
-        cover:'/imgs/manosedabezan.jpg',
-        link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%206%20(320).mp3',
-        timedLyrics:[
-  { time: 14, text: "نمیدونم اون همه خاطره چجوری از یادم باید بره" },
-  { time: 19, text: "خیلی چیزا روی قلبم بعد چشمات بی اثره…" },
-  { time: 26, text: "تو میگفتی وقتی دورم کل دنیا ساکته" },
-  { time: 32, text: "یادته روزای خوب اون رابطه" },
-  { time: 40, text: "تو رو دلم میخاد به کی بگم من که مثل تو نبودم…" },
-  { time: 45, text: "کاش که پاک شه از وجودم خاطراتت" },
-  { time: 52, text: "مثل یه سایه عطر تو با منه مگه آدم از آهن" },
-  { time: 58, text: "دلمو آتیش میزنه خاطراتت…" },
-  { time: 91, text: "واسه ی دیدنت من هنوز منتظر فرصتم" },
-  { time: 98, text: "یه روزی میرسه میبینی من همون گمشدتم" },
-  { time: 104, text: "عادت منی تو سختمه ترک این عادتم…" },
-  { time: 114, text: "تو رو دلم میخاد به کی بگم من که مثل تو نبودم…" },
-  { time: 119, text: "کاش که پاک شه از وجودم خاطراتت" },
-  { time: 126, text: "مثل یه سایه عطر تو با منه مگه آدم از آهن" },
-  { time: 132, text: "دلمو آتیش میزنه خاطراتت…" },
-]
-    },
-    
     {
         title:'Dastamo Begir',
         titleFa:'دستمو بگیر',
@@ -409,45 +532,35 @@ timedLyrics: [
 ]
     },
     {
-        title:'Bebin Haleto',
-        titleFa:'ببین حالتو(ویولن)',
+        title:'halamo ki dare',
+        titleFa:'حالمو کی داره',
         cover:'/imgs/manosedabezan.jpg',
-        link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%2010%20(320).mp3',
+        link:'https://irsv.upmusics.com/dlw/Ehsan%20Neyzan%20-%20Mano%20Seda%20Bezan%209%20(320).mp3',
         timedLyrics:[
-    { time: 16, text: "حرفامو گفتم نگفته نمونه" },
-    { time: 21, text: "یه ترسی تو چشماته که حال هردومونه…" },
-  { time: 27, text: "منو با همه تنهاییام تنها گذاشتی" },
-  { time: 33, text: "تو دست از سر دنیای من برنداشتی" },
-  { time: 40, text: "یه روزی دلتنگم میشی یادت باشه…" },
-  { time: 46, text: "چجوری به قلبت میگی ساکت باشه" },
-  { time: 51, text: "یه چیزی بگو آروم بشم" },
-  { time: 57, text: "یه روزی دلتنگت میشم یادم میره…" },
-  { time: 63, text: "همیشه قلبمو به هر کی دادم میره" },
-  { time: 69, text: "یه چیزی بگو آروم بشم" },
-  { time: 109, text: "یه کاری کنم تو قلب من آروم بگیری…" },
-  { time: 114, text: "از این جا به بعد جایی نری" },
-  { time: 118, text: "ببین حالتو دیوونه تو هر جا که باشی" },
-  { time: 124, text: "تو دنیای من زیباتری…" },
-  { time: 130, text: "یه روزی دلتنگم میشی یادت باشه…" },
-  { time: 136, text: "چجوری به قلبت میگی ساکت باشه" },
-  { time: 141, text: "یه چیزی بگو آروم بشم" },
-  { time: 147, text: "یه روزی دلتنگت میشم یادم میره…" },
-  { time: 153, text: "همیشه قلبمو به هر کی دادم میره" },
-  { time: 159, text: "یه چیزی بگو آروم بشم" },
+  { time: 0, text: "من و شب و بارون، تو و من" },
+  { time: 5, text: "حالمو کی داره" },
+  { time: 9, text: "قد یه نگا عاشقت شدن" },
+  { time: 13, text: "حالمو کی داره" },
+  { time: 17, text: "تو که همه دنیامی، خودِ چشمامی" },
+  { time: 22, text: "دوباره، نشستی، تو قلبم، بگو حالمو کی داره" },
+  { time: 29, text: "از من، بهتر، کی می‌تونه عاشق بشه" },
+  { time: 34, text: "عمرم، جونم، چشای تو عاشق‌کُشه" },
+  { time: 39, text: "آخه توو نگات چی داری که دلم رفت" },
+  { time: 44, text: "از تو، بهتر، کی توو دل من خونه کرد" },
+  { time: 49, text: "عشقم، قلبم، دلمو کی دیوونه کرد" },
+  { time: 54, text: "آخه توو نگات چی داری که دلم رفت" },
+  { time: 59, text: "وقتی که می‌خندی" },
+  { time: 63, text: "کار من تمومه" },
+  { time: 67, text: "توو چشام ببین عاشقت شدم کیه که ندونه" },
+  { time: 73, text: "حال هردومونه" },
+  { time: 77, text: "عشقه یا جنونه" },
+  { time: 81, text: "مث من واست مگه کسی هست اینقده دیوونه" }
 ]
-    }]
+    }
+    ]
 </script>
 
 <style>
- .lyrics-box {
-  text-align: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.7);
-  font-size: 1.2rem;
-  line-height: 2.2;
-  padding: 10px;
-  border-radius: 8px;
-}
 
 .lyric-line-box {
   display: inline-block;
@@ -478,6 +591,62 @@ timedLyrics: [
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+
+.outer-box {
+  margin: auto;
+  margin-top: 10rem;
+  max-width: 90vw;
+  width: 800px;
+  height: 200px;
+  border: 1px solid white;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  transition: all 0.3s ease;
+}
+
+.inner-logo {
+  width: clamp(100px, 25%, 180px); /* 👈 حداقل 100px، حداکثر 180px */
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid white;
+  background-image: url('/imgs/logo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* افکت hover زیبا */
+.inner-logo:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+/* تبلت */
+@media (max-width: 900px) {
+  .outer-box {
+    width: 90%;
+    height: 160px;
+    border-top-right-radius: 80px;
+    border-bottom-right-radius: 80px;
+  }
+}
+
+/* موبایل */
+@media (max-width: 600px) {
+  .outer-box {
+    width: 95%;
+    height: 110px;
+    border-top-right-radius: 60px;
+    border-bottom-right-radius: 60px;
+    padding-left: 0.5rem;
   }
 }
 </style>

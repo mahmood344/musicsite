@@ -1,6 +1,6 @@
 <!-- :height="$vuetify.display.smAndDown?500:950" -->
 <template>
- <v-card flat max-width="1800" class="h-screen d-flex align-center justify-center bg-transparent mx-auto" style="overflow: visible;">
+ <v-card flat max-width="1800" class="h-screen d-flex align-start align-md-center justify-center bg-transparent mx-auto" style="overflow: visible;">
   <v-row class="w-100">
     <v-col cols="12" class="d-flex justify-center">
         <v-avatar :size=$vuetify.display.smAndDown?200:300 :class="store.startAnimation?'logoTop':'logoBottom'">
@@ -15,9 +15,9 @@
     <v-col cols="12" class="d-flex justify-center">
         <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-5">mdi-music</v-icon>همه آلبوم ها</v-btn>
     </v-col>
-    <v-col cols="12" class="d-flex justify-center my-5">
+    <!-- <v-col cols="12" class="d-flex justify-center my-5">
     <canvas ref="canvas"></canvas>
-    </v-col>
+    </v-col> -->
   </v-row>
 </v-card>
 <v-row>
@@ -79,7 +79,7 @@ watch(
     transform: translateY(0px) scale(1);
   }
   100% {
-    transform: translateY(-99%) scale(0.2);
+    transform: translateY(-140%) scale(0.2);
   }
 }
 @keyframes moveBottomLeft {
@@ -96,7 +96,7 @@ watch(
       transform: translateY(0px) scale(0.8);
     }
     100% {
-      transform: translateY(-145%) scale(0.5); 
+      transform: translateY(-75%) scale(0.3); 
     }
   }
 
