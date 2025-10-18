@@ -1,8 +1,9 @@
+<!-- :height="$vuetify.display.smAndDown?500:950" -->
 <template>
- <v-card flat max-width="1800" :height="$vuetify.display.smAndDown?500:750" class="d-flex align-center justify-center bg-transparent mx-auto" style="overflow: visible;">
+ <v-card flat max-width="1800" class="h-screen d-flex align-start align-md-center justify-center bg-transparent mx-auto" style="overflow: visible;">
   <v-row class="w-100">
     <v-col cols="12" class="d-flex justify-center">
-        <v-avatar :size=$vuetify.display.smAndDown?200:400 :class="store.startAnimation?'logoTop':'logoBottom'">
+        <v-avatar :size=$vuetify.display.smAndDown?200:300 :class="store.startAnimation?'logoTop':'logoBottom'">
       <v-img
         alt="John"
         src="/imgs/logo.jpg"
@@ -12,16 +13,27 @@
         <h1 style="font-size: 4rem;letter-spacing: 1rem;color: #8a1b1e;" :style="$vuetify.display.smAndDown?'font-size:1.5rem;letter-spacing: 0.5rem':'font-size:4rem;letter-spacing: 1rem'">EHSAN NEYZAN</h1>
     </v-col>
     <v-col cols="12" class="d-flex justify-center">
-        <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-10">mdi-music</v-icon>همه آلبوم ها</v-btn>
+        <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-5">mdi-music</v-icon>همه آلبوم ها</v-btn>
     </v-col>
+    <!-- <v-col cols="12" class="d-flex justify-center my-5">
+    <canvas ref="canvas"></canvas>
+    </v-col> -->
   </v-row>
 </v-card>
 </template>
 
 <script setup>
-import {ref , watch} from 'vue';
+import {ref , watch , onMounted } from 'vue';
 import { useRouter , useRoute } from 'vue-router';
 import { StateManegment } from '../store/index.js';
+onMounted(() => {
+  QRCode.toCanvas(canvas.value, text, { width: 100 , height:100n }, function (error) {
+    if (error) console.error(error)
+  })
+})
+import QRCode from 'qrcode'
+const canvas = ref(null)
+const text = 'https://example.com'
 const store = StateManegment();
 const Router = useRouter();
 const Route = useRoute();
@@ -61,7 +73,7 @@ watch(
     transform: translateY(0px) scale(1);
   }
   100% {
-    transform: translateY(-90%) scale(0.3);
+    transform: translateY(-140%) scale(0.2);
   }
 }
 @keyframes moveBottomLeft {
@@ -78,7 +90,7 @@ watch(
       transform: translateY(0px) scale(0.8);
     }
     100% {
-      transform: translateY(-200%) scale(0.5); /* کمتر حرکت می‌کنه و بزرگتر میمونه */
+      transform: translateY(-75%) scale(0.3); 
     }
   }
 
@@ -97,4 +109,11 @@ watch(
 .logoBottom{
   animation: moveBottomLeft 0.5s ease-in-out forwards;
 }
+
 </style>
+
+
+
+
+
+
