@@ -28,20 +28,19 @@
 
       <!-- ستون آهنگ ها -->
       <v-col class="h-100 pa-4" cols="12" lg="6" style="background: transparent">
-        <v-card class="h-100 rounded-xl" style="background: rgba(34,34,34 ,0.5);">
+        <v-card flat class="h-100 rounded-xl" :style="$vuetify.display.mdAndDown?'background: transparent':'background: rgba(34,34,34 ,0.5)'">
           <v-card-title class="text-center text-white py-8">آهنگ ها</v-card-title>
           <v-card-text class="mx-4 rounded-xl pa-8 mb-5" style="background: transparent;">
             <v-row>
               <v-col class="d-flex justify-center" cols="6" sm="4" md="3"
                      v-for="(track , index) in tracks" :key="index">
-                      <!-- <v-hover v-slot="{ isHovering, props }"> -->
                 <v-card v-on:click="getTrack(index)"
                 v-bind="props"
-                        :width="$vuetify.display.smAndDown?300:300"
-                        :height="$vuetify.display.smAndDown?300:300"
+                        :width="$vuetify.display.smAndDown?150:200"
+                        :height="$vuetify.display.smAndDown?150:200"
                         class="rounded-xl">
                   <v-img 
-                   :height="$vuetify.display.smAndDown?'300':'300px'" :src="track.cover" cover>
+                   :height="$vuetify.display.smAndDown?'150':'200'" :src="track.cover" cover>
                     <v-expand-transition>
             <div
               class="d-flex v-card--reveal"
@@ -52,7 +51,7 @@
           </v-expand-transition>
                   </v-img>
                 </v-card>
-                <!-- </v-hover> -->
+
               </v-col>
             </v-row>
           </v-card-text>
@@ -761,10 +760,10 @@ timedLyrics: [
   transition: transform 0.2s ease;
 }
 
-.player-btn:hover {
+/* .player-btn:hover {
   transform: scale(1.2);
   color: #ff0055;
-}
+} */
 
 .time {
   font-family: monospace;

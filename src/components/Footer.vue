@@ -1,6 +1,7 @@
 <template>
   <footer
-    class="mx-auto py-4 text-white fixed-footer"
+    class="mx-auto  text-white"
+   :class="$router.currentRoute.value.name == 'Home'?'fixed-footer':''"
     style="max-width: 300px;"
   >
     <v-row class="d-flex justify-center align-center">
@@ -42,11 +43,11 @@
 
 <style scoped>
 .fixed-footer {
-  /* position: fixed;
-  bottom: 0;
+  position: fixed;
+  bottom:10px;
   left: 0;
-  right: 0; */
-  /* background: transparent; می‌تونی مثلاً #000 یا #111 بزاری */
-  /* z-index: 100; */
+  right: 0; 
+   background: transparent;
+  z-index: 100; 
 }
 </style>

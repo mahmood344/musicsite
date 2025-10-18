@@ -14,7 +14,7 @@
           <v-avatar size="60"
   :class="{
     'invisible opacity-0': $router.currentRoute.value.name !== 'Albums',
-    'visible opacity-100 transition-all duration-300': $router.currentRoute.value.name === 'Albums'
+    'visible opacity-100 transition-all duration-300': $router.currentRoute.value.name === 'Albums' || $router.currentRoute.value.name === 'SongLyrics'
   }"
 >
   <v-img alt="Logo" src="/imgs/logo.jpg"></v-img>
@@ -23,9 +23,9 @@
       </v-col>
       <!-- موبایل: آیکون جستجو -->
       <v-col cols="4" class="d-flex d-md-none justify-end">
-        <v-btn icon @click="toggleMobileSearch" :class="showMobileSearch?'mt-4':'mt-0'">
-          <v-icon>{{ showMobileSearch ? 'mdi-close' : 'mdi-magnify' }}</v-icon>
-        </v-btn>
+        <!-- <v-btn icon @click="toggleMobileSearch" :class="showMobileSearch?'mt-4':'mt-0'"> -->
+          <v-icon  icon @click="toggleMobileSearch" :class="showMobileSearch?'mt-4':'mt-0'">{{ showMobileSearch ? 'mdi-close' : 'mdi-magnify' }}</v-icon>
+        <!-- </v-btn> -->
       </v-col>
 
       <!-- دسکتاپ: منو -->
@@ -44,7 +44,7 @@
           <v-avatar size="60"
   :class="{
     'invisible opacity-0': $router.currentRoute.value.name !== 'Albums',
-    'visible opacity-100 transition-all duration-300': $router.currentRoute.value.name === 'Albums'
+    'visible opacity-100 transition-all duration-300': $router.currentRoute.value.name === 'Albums' || $router.currentRoute.value.name === 'SongLyrics'
   }"
 >
   <v-img alt="Logo" src="/imgs/logo.jpg"></v-img>

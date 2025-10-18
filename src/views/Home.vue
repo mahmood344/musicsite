@@ -20,18 +20,12 @@
     </v-col> -->
   </v-row>
 </v-card>
-<v-row>
-  <v-col cols="12">
-      <Footer></Footer>
-    </v-col>
-</v-row>
 </template>
 
 <script setup>
 import {ref , watch , onMounted } from 'vue';
 import { useRouter , useRoute } from 'vue-router';
 import { StateManegment } from '../store/index.js';
-import Footer from '../components/Footer.vue';
 onMounted(() => {
   QRCode.toCanvas(canvas.value, text, { width: 100 , height:100n }, function (error) {
     if (error) console.error(error)
