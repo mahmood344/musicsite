@@ -146,9 +146,6 @@ v-if="$vuetify.display.mdAndDown"
                 </button>
                 <span class="time">{{ formatTime(currentTime) }}</span>
                 <div class="progress-container" @click="seek($event)">
-                  <!-- <div class="progress-bar">
-                    <div class="progress" :style="{ width: progress + '%' }"></div>
-                  </div> -->
                   <input
   type="range"
   min="0"
@@ -825,9 +822,7 @@ timedLyrics: [
   left: 0;
   width: 100%;
   
-  height: 200px; /* ارتفاع دلخواه */
-  /* background: rgba(34, 34, 34, 0.5);
-  color: white; */
+  height: 200px; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -922,11 +917,7 @@ timedLyrics: [
   cursor: pointer;
   transition: all 0.2s ease;
 }
-/* .control-btn:hover{
-  box-shadow:
-    6px 6px 12px #cfd5db,
-    -6px -6px 12px #ffffff;
-} */
+
 .control-btn.small {
   width: 55px;
   height: 55px;
@@ -942,7 +933,7 @@ timedLyrics: [
 }
 
 .lyrics-box {
-  max-height: 250px;
+  max-height: 290px;
   overflow-y: auto;
 }
 .active {

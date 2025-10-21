@@ -1,4 +1,4 @@
-<!-- :height="$vuetify.display.smAndDown?500:950" -->
+
 <template>
  <v-card flat max-width="1800" class="h-screen d-flex align-start align-md-center justify-center bg-transparent mx-auto" style="overflow: visible;">
   <v-row class="w-100">
@@ -13,11 +13,8 @@
         <h1 style="font-size: 4rem;letter-spacing: 1rem;color: #8a1b1e;" :style="$vuetify.display.smAndDown?'font-size:1.5rem;letter-spacing: 0.5rem':'font-size:4rem;letter-spacing: 1rem'">EHSAN NEYZAN</h1>
     </v-col>
     <v-col cols="12" class="d-flex justify-center">
-        <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-5">mdi-music</v-icon>همه آلبوم ها</v-btn>
+        <v-btn v-on:click="goToRoute" style="background: #8a1b1e;" size="x-large" class="px-4 text-white"> <v-icon class="ml-5">mdi-music</v-icon>کنسرت 2 آبان</v-btn>
     </v-col>
-    <!-- <v-col cols="12" class="d-flex justify-center my-5">
-    <canvas ref="canvas"></canvas>
-    </v-col> -->
   </v-row>
 </v-card>
 </template>
@@ -42,7 +39,7 @@ function goToRoute(){
     if(Router.currentRoute.value.name == 'Home'){ 
         store.setStartAnimation(true)
     setTimeout(() => {
-        Router.push({name:'Albums'})
+        Router.push({name:'SongLyrics'})
     }, 500);
     }
     else{

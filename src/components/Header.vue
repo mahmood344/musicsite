@@ -23,13 +23,11 @@
       </v-col>
       <!-- موبایل: آیکون جستجو -->
       <v-col cols="4" class="d-flex d-md-none justify-end">
-        <!-- <v-btn icon @click="toggleMobileSearch" :class="showMobileSearch?'mt-4':'mt-0'"> -->
           <v-icon  icon @click="toggleMobileSearch" :class="showMobileSearch?'mt-4':'mt-0'">{{ showMobileSearch ? 'mdi-close' : 'mdi-magnify' }}</v-icon>
-        <!-- </v-btn> -->
       </v-col>
 
       <!-- دسکتاپ: منو -->
-      <v-col md="4" class="d-none d-md-flex justify-space-around menu">
+      <v-col md="4" class="d-none d-md-flex justify-space-between menu">
         <router-link :to="{name:'Home'}"><v-btn variant="plain">خانه</v-btn></router-link>
         <router-link :to="{name:'Albums'}"><v-btn variant="plain">آلبوم‌ها</v-btn></router-link>
         <router-link :to="{name:'SongLyrics'}"><v-btn variant="plain">کنسرت 2 آبان</v-btn></router-link>
@@ -80,8 +78,6 @@
         </v-col>
       </v-row>
     </transition>
-
-    <!-- Navigation Drawer -->
     <v-navigation-drawer class="bg-black px-2" v-model="drawer" temporary>
       <v-list class="pt-8 menu">
         <router-link :to="{name:'Home'}"><v-list-item link>خانه</v-list-item></router-link>
@@ -115,5 +111,6 @@ function toggleMobileSearch() {
 
 
 
-.menu a { color: white; text-decoration: none; transition: color 0.3s ease; } .menu a.router-link-active { color: #8a1b1e } /* اگر فقط بخوای رنگ لینک دقیقاً برابر مسیر فعلی تغییر کنه (نه لینک‌های parent) */ .menu a.router-link-exact-active { color: #8a1b1e; }
+.menu a { color: white; text-decoration: none; transition: color 0.3s ease; } .menu a.router-link-active { color: #8a1b1e } 
+.menu a.router-link-exact-active { color: #f7454b; }
 </style>
